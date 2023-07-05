@@ -18,6 +18,9 @@ jobs:
           - 3306:3306
 
     steps:
+        - name: show envs
+          run: env
+
         - name: install packages
           run: |
             sudo apt-get install -y ssh libevent-dev libcurl4-openssl-dev libglib2.0-dev uuid-dev intltool 
@@ -135,7 +138,10 @@ jobs:
           uses: actions/download-artifact@v3
           with:
             name: sea-server
-        - run: |
+
+        - name: try to run downloaded artifact
+          run: |
+            cd /home/runner/work/seafile-server/seafile-server
             chmod +x sea-server
             ./sea-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
   
