@@ -4,25 +4,25 @@ on:
   push:
   workflow_dispatch:
 
-env:
-  # registry: my_registry_name
-  # Not sure these are actually being passed down to rails, set them as the default in database.yml
-  DB_HOST: 127.0.0.1
-  DB_USERNAME: root
-  DB_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+# env:
+#   # registry: my_registry_name
+#   # Not sure these are actually being passed down to rails, set them as the default in database.yml
+#   DB_HOST: 127.0.0.1
+#   DB_USERNAME: root
+#   DB_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
 
 jobs:
   test_build:
     runs-on: ubuntu-latest
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-            MARIADB_USER: root
-            MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
-            MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
-        ports:
-          - 3306:3306
+    # services:
+    #   mariadb:
+    #     image: mariadb:latest
+    #     env:
+    #         MARIADB_USER: root
+    #         MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
+    #         MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+    #     ports:
+    #       - 3306:3306
 
     steps:
         - name: show envs
