@@ -138,7 +138,6 @@ jobs:
           uses: actions/download-artifact@v3
           with:
             name: sea-server
-            path: $GITHUB_WORKSPACE
 
         - name: try to run downloaded artifact
           run: |
