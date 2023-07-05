@@ -1,6 +1,8 @@
 name: Seafile Server Build CI
 
-on: push
+on: 
+  push:
+  workflow_dispatch:
 
 jobs:
   test_build:
@@ -39,14 +41,14 @@ jobs:
             
             git clone https://github.com/haiwen/libevhtp.git
             git clone https://github.com/haiwen/libsearpc.git
-            git clone https://github.com/haiwen/seafile-server.git
+            # git clone https://github.com/haiwen/seafile-server.git
 
         - name: compile libevhtp
           run: |
             cd ~/dev/source-code/libevhtp
             cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=OFF .
             make
-            make install
+            sudo make install
             ldconfig
         
         - name: compile libsearpc
@@ -55,20 +57,22 @@ jobs:
             ./autogen.sh
             ./configure
             make
-            make install
+            sudo make install
             ldconfig
+
+        - name: checkout
+          uses: actions/checkout@v3
 
         - name: compile seafile-server
           run: |
-            cd ~/dev/source-code/seafile-server
+            # cd ~/dev/source-code/seafile-server
             ./autogen.sh
             ./configure --disable-fuse
             make
             make install
             ldconfig
 
-        # - name: checkout
-        #   uses: actions/checkout@v3
+        
 
         
         # - name: install dependencies and test
