@@ -17,12 +17,12 @@ jobs:
     steps:
         - name: install packages
           run: |
-            sudo rm /var/lib/apt/lists/lock
-            sudo rm /var/cache/apt/archives/lock
-            sudo rm /var/lib/dpkg/lock*
-            sudo dpkg --configure -a
-            sudo apt update
-            sudo apt-get update && apt-get upgrade -y
+            # sudo rm /var/lib/apt/lists/lock
+            # sudo rm /var/cache/apt/archives/lock
+            # sudo rm /var/lib/dpkg/lock*
+            # sudo dpkg --configure -a
+            # sudo apt update
+            # sudo apt-get update && apt-get upgrade -y
             sudo apt-get install -y ssh libevent-dev libcurl4-openssl-dev libglib2.0-dev uuid-dev intltool 
             sudo apt-get install -y libsqlite3-dev libmysqlclient-dev libarchive-dev libtool libjansson-dev valac libfuse-dev
             sudo apt-get install -y cmake re2c flex sqlite3 python-pip git libssl-dev libldap2-dev libonig-dev vim vim-scripts
