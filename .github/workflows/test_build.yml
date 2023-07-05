@@ -43,6 +43,8 @@ jobs:
 
         - name: compile libevhtp
           run: |
+            pwd
+            ls
             cd libevhtp
             cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=OFF .
             make
