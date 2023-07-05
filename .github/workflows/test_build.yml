@@ -133,8 +133,8 @@ jobs:
 
         - name: try to run
           run: |
-            sudo service sql start
-            # mysqladmin -u root password ${{ secrets.MARIADB_PASSWORD }}
+            sudo service mysql start
+            mysqladmin -u root password ${{ secrets.MARIADB_PASSWORD }}
             seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
 
         - name: Archive code coverage results
