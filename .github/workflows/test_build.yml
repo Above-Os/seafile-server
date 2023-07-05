@@ -7,7 +7,7 @@ on:
 env:
   # registry: my_registry_name
   # Not sure these are actually being passed down to rails, set them as the default in database.yml
-  DB_HOST: localhost
+  DB_HOST: 127.0.0.1
   DB_USERNAME: root
   DB_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
 
@@ -89,7 +89,7 @@ jobs:
             cat > ccnet.conf  <<EOF
             [Database]
             ENGINE = mysql
-            HOST = localhost
+            HOST = 127.0.0.1
             PORT = 3306
             USER = root
             PASSWD = ${{ secrets.MARIADB_PASSWORD }}
@@ -108,7 +108,7 @@ jobs:
                     'NAME': 'seahub',
                     'USER': 'root',
                     'PASSWORD': '${{ secrets.MARIADB_PASSWORD }}',
-                    'HOST': 'localhost',
+                    'HOST': '127.0.0.1',
                     'PORT': '3306',
                 }
             }
@@ -122,7 +122,7 @@ jobs:
             cat > seafile.conf  <<EOF
             [database]
             type = mysql
-            host = localhost
+            host = 127.0.0.1
             port = 3306
             user = root
             password = ${{ secrets.MARIADB_PASSWORD }}
