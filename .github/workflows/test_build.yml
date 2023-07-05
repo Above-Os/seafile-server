@@ -4,6 +4,13 @@ on:
   push:
   workflow_dispatch:
 
+env:
+  # registry: my_registry_name
+  # Not sure these are actually being passed down to rails, set them as the default in database.yml
+  DB_HOST: localhost
+  DB_USERNAME: root
+  DB_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+
 jobs:
   test_build:
     runs-on: ubuntu-latest
@@ -83,7 +90,7 @@ jobs:
             cat > ccnet.conf  <<EOF
             [Database]
             ENGINE = mysql
-            HOST = 127.0.0.1
+            HOST = localhost
             PORT = 3306
             USER = root
             PASSWD = ${{ secrets.MARIADB_PASSWORD }}
@@ -116,7 +123,7 @@ jobs:
             cat > seafile.conf  <<EOF
             [database]
             type = mysql
-            host = 127.0.0.1
+            host = localhost
             port = 3306
             user = root
             password = ${{ secrets.MARIADB_PASSWORD }}
