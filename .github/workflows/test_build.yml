@@ -142,7 +142,7 @@ jobs:
 
         - name: try to run downloaded artifact
           run: |
-            cd ~/dev
+            cd ~/dev/sea-server
             ls -af
             chmod +x sea-server
             ./sea-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
