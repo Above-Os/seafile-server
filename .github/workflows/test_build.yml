@@ -49,7 +49,7 @@ jobs:
             cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=OFF .
             make
             sudo make install
-            ldconfig
+            sudo ldconfig
         
         - name: compile libsearpc
           run: |
@@ -58,7 +58,7 @@ jobs:
             ./configure
             make
             sudo make install
-            ldconfig
+            sudo ldconfig
 
         - name: checkout
           uses: actions/checkout@v3
@@ -70,11 +70,61 @@ jobs:
             ./configure --disable-fuse
             make
             make install
-            ldconfig
+            sudo ldconfig
 
-        
+        - name: create config files
+          run: |
+            mkdir ~/dev/conf
+            cd ~/dev/conf
 
-        
+            cat > ccnet.conf  <<EOF
+            [Database]
+            ENGINE = mysql
+            HOST = localhost
+            PORT = 3306
+            USER = root
+            PASSWD = 123456
+            DB = ccnet
+            CONNECTION_CHARSET = utf8
+            CREATE_TABLES = true
+
+            [General]
+            SERVICE_URL = http://127.0.0.1:8000
+            EOF
+
+            cat > seahub_settings.py  <<EOF
+            DATABASES = {
+                'default': {
+                    'ENGINE': 'django.db.backends.mysql',
+                    'NAME': 'seahub',
+                    'USER': 'root',
+                    'PASSWORD': '123456',
+                    'HOST': 'localhost',
+                    'PORT': '3306',
+                }
+            }
+            FILE_SERVER_ROOT = 'http://127.0.0.1:8082'
+            EOF
+
+
+            mkdir ~/dev/seafile-data
+            cd ~/dev/seafile-data
+
+            cat > seafile.conf  <<EOF
+            [database]
+            type = mysql
+            host = localhost
+            port = 3306
+            user = root
+            password = 123456
+            db_name = seafile
+            connection_charset = utf8
+            create_tables = true
+            EOF
+
+        - name: try to run
+          run: seaf-server -c /root/dev/conf -d /root/dev/seafile-data -D all -f -l - &
+  
         # - name: install dependencies and test
         #   run: |
         #     cd $GITHUB_WORKSPACE
