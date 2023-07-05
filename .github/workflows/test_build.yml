@@ -83,7 +83,7 @@ jobs:
             cat > ccnet.conf  <<EOF
             [Database]
             ENGINE = mysql
-            HOST = mariadb
+            HOST = 127.0.0.1
             PORT = 3306
             USER = root
             PASSWD = ${{ secrets.MARIADB_PASSWORD }}
@@ -116,7 +116,7 @@ jobs:
             cat > seafile.conf  <<EOF
             [database]
             type = mysql
-            host = mariadb
+            host = 127.0.0.1
             port = 3306
             user = root
             password = ${{ secrets.MARIADB_PASSWORD }}
