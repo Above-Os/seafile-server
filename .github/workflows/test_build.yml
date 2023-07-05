@@ -138,13 +138,13 @@ jobs:
           uses: actions/download-artifact@v3
           with:
             name: sea-server
-            path: ~/dev
+            path: ~/dev/sea-server
 
         - name: try to run downloaded artifact
           run: |
             cd ~/dev
             ls -af
-            chmod +x ./sea-server
+            chmod +x sea-server
             ./sea-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
   
         # - name: install dependencies and test
