@@ -43,9 +43,7 @@ jobs:
 
         - name: compile libevhtp
           run: |
-            pwd
-            ls
-            cd libevhtp
+            cd ~/dev/source-code/libevhtp
             cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=OFF .
             make
             make install
@@ -53,7 +51,7 @@ jobs:
         
         - name: compile libsearpc
           run: |
-            cd ../libsearpc
+            cd ~/dev/source-code/libsearpc
             ./autogen.sh
             ./configure
             make
@@ -62,7 +60,7 @@ jobs:
 
         - name: compile seafile-server
           run: |
-            cd ../seafile-server
+            cd ~/dev/source-code/seafile-server
             ./autogen.sh
             ./configure --disable-fuse
             make
