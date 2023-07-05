@@ -69,7 +69,7 @@ jobs:
             ./autogen.sh
             ./configure --disable-fuse
             make
-            make install
+            sudo make install
             sudo ldconfig
 
         - name: create config files
