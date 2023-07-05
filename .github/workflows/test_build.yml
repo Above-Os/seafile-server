@@ -144,8 +144,8 @@ jobs:
           run: |
             cd ~/dev/sea-server
             ls -af
-            chmod +x sea-server
-            ./sea-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
+            chmod +x seaf-server
+            ./seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
   
         # - name: install dependencies and test
         #   run: |
