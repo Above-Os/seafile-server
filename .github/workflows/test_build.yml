@@ -14,15 +14,15 @@ env:
 jobs:
   test_build:
     runs-on: ubuntu-latest
-    # services:
-    #   mariadb:
-    #     image: mariadb:latest
-    #     env:
-    #         MARIADB_USER: root
-    #         MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
-    #         MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
-    #     ports:
-    #       - 3306:3306
+    services:
+      mariadb:
+        image: mariadb:latest
+        env:
+            MARIADB_USER: root
+            MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
+            MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+        ports:
+          - 3306:3306
 
     steps:
         - name: show envs
