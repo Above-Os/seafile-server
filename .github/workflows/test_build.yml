@@ -138,11 +138,13 @@ jobs:
           uses: actions/download-artifact@v3
           with:
             name: sea-server
+            path: $GITHUB_WORKSPACE
 
         - name: try to run downloaded artifact
           run: |
-            cd /home/runner/work/seafile-server/seafile-server
-            chmod +x sea-server
+            cd $GITHUB_WORKSPACE
+            ls -af
+            chmod +x ./sea-server
             ./sea-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
   
         # - name: install dependencies and test
