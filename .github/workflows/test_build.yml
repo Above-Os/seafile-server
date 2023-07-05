@@ -7,14 +7,15 @@ on:
 jobs:
   test_build:
     runs-on: ubuntu-latest
-    # container:
-    #     image: mariadb:latest
-    #     env:
-    #         MARIADB_USER: root
-    #         MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
-    #         MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
-    #     ports:
-    #       - 3306
+    container:
+        image: mariadb:latest
+        name: mariadb
+        env:
+            MARIADB_USER: root
+            MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
+            MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+        ports:
+          - 3306
 
     steps:
         - name: install packages
@@ -83,7 +84,7 @@ jobs:
             HOST = localhost
             PORT = 3306
             USER = root
-            PASSWD = 123456
+            PASSWD = ${{ secrets.MARIADB_PASSWORD }}
             DB = ccnet
             CONNECTION_CHARSET = utf8
             CREATE_TABLES = true
@@ -98,7 +99,7 @@ jobs:
                     'ENGINE': 'django.db.backends.mysql',
                     'NAME': 'seahub',
                     'USER': 'root',
-                    'PASSWORD': '123456',
+                    'PASSWORD': '${{ secrets.MARIADB_PASSWORD }}',
                     'HOST': 'localhost',
                     'PORT': '3306',
                 }
@@ -116,14 +117,14 @@ jobs:
             host = localhost
             port = 3306
             user = root
-            password = 123456
+            password = ${{ secrets.MARIADB_PASSWORD }}
             db_name = seafile
             connection_charset = utf8
             create_tables = true
             EOF
 
         - name: try to run
-          run: seaf-server -c /root/dev/conf -d /root/dev/seafile-data -D all -f -l - &
+          run: seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
   
         # - name: install dependencies and test
         #   run: |
