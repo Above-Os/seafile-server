@@ -14,15 +14,15 @@ env:
 jobs:
   test_build:
     runs-on: ubuntu-latest
-    services:
-      mariadb:
-        image: mariadb:latest
-        env:
-            MARIADB_USER: root
-            MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
-            MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
-        ports:
-          - 3306:3306
+    # services:
+    #   mariadb:
+    #     image: mariadb:latest
+    #     env:
+    #         MARIADB_USER: root
+    #         MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
+    #         MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+    #     ports:
+    #       - 3306:3306
 
     steps:
         - name: show envs
@@ -43,6 +43,11 @@ jobs:
           uses: actions/setup-python@v4
           with:
             python-version: "3.8"
+        
+        - name: start sql
+          run: |
+            service sql start
+            mysqladmin -u root password ${{ secrets.MARIADB_PASSWORD }}
         
         - name: clone dependencies in a given dir
           run: |
@@ -134,7 +139,6 @@ jobs:
 
         - name: try to run
           run: |
-            sudo service mysql start
             seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
 
         - name: Archive code coverage results
@@ -153,7 +157,6 @@ jobs:
           run: |
             cd ~/dev/sea-server
             ls -af
-            sudo service mysql start
             chmod +x seaf-server
             ./seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
   
