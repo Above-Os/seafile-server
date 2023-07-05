@@ -133,7 +133,9 @@ jobs:
             EOF
 
         - name: try to run
-          run: seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
+          run: |
+            sudo service mysql start
+            seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
 
         - name: Archive code coverage results
           uses: actions/upload-artifact@v3
@@ -151,6 +153,7 @@ jobs:
           run: |
             cd ~/dev/sea-server
             ls -af
+            sudo service mysql start
             chmod +x seaf-server
             ./seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
   
