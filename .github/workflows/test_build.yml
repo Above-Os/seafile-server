@@ -17,6 +17,7 @@ jobs:
     steps:
         - name: install packages
           run: |
+            sudo su -
             sudo apt-get update && apt-get upgrade -y
             sudo apt-get install -y ssh libevent-dev libcurl4-openssl-dev libglib2.0-dev uuid-dev intltool 
             sudo apt-get install -y libsqlite3-dev libmysqlclient-dev libarchive-dev libtool libjansson-dev valac libfuse-dev
