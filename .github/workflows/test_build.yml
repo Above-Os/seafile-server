@@ -1,19 +1,18 @@
 name: Seafile Server Build CI
 
-on: 
-  workflow_dispatch:
+on: push
 
 jobs:
   test_build:
     runs-on: ubuntu-latest
-    container:
-        image: mariadb:latest
-        env:
-            MARIADB_USER: root
-            MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
-            MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
-        ports:
-          - 3306
+    # container:
+    #     image: mariadb:latest
+    #     env:
+    #         MARIADB_USER: root
+    #         MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
+    #         MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+    #     ports:
+    #       - 3306
 
     steps:
         - name: install packages
