@@ -44,11 +44,6 @@ jobs:
           with:
             python-version: "3.8"
         
-        - name: start sql
-          run: |
-            service sql start
-            mysqladmin -u root password ${{ secrets.MARIADB_PASSWORD }}
-        
         - name: clone dependencies in a given dir
           run: |
             cd ~/
@@ -139,6 +134,8 @@ jobs:
 
         - name: try to run
           run: |
+            service sql start
+            mysqladmin -u root password ${{ secrets.MARIADB_PASSWORD }}
             seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
 
         - name: Archive code coverage results
