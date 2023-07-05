@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
         image: mariadb:latest
-        name: mariadb
         env:
             MARIADB_USER: root
             MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
