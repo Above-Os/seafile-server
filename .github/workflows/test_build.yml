@@ -4,12 +4,12 @@ on:
   push:
   workflow_dispatch:
 
-# env:
-#   # registry: my_registry_name
-#   # Not sure these are actually being passed down to rails, set them as the default in database.yml
-#   DB_HOST: localhost
-#   DB_USERNAME: root
-#   DB_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
+env:
+  # registry: my_registry_name
+  # Not sure these are actually being passed down to rails, set them as the default in database.yml
+  DB_HOST: localhost
+  DB_USERNAME: root
+  DB_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
 
 jobs:
   test_build:
@@ -75,7 +75,6 @@ jobs:
 
         - name: compile seafile-server
           run: |
-            # cd ~/dev/source-code/seafile-server
             ./autogen.sh
             ./configure --disable-fuse
             make
@@ -134,7 +133,7 @@ jobs:
 
         - name: try to run
           run: |
-            # sudo service sql start
+            sudo service sql start
             # mysqladmin -u root password ${{ secrets.MARIADB_PASSWORD }}
             seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
 
