@@ -7,7 +7,8 @@ on:
 jobs:
   test_build:
     runs-on: ubuntu-latest
-    container:
+    services:
+      mariadb:
         image: mariadb:latest
         env:
             MARIADB_USER: root
@@ -80,7 +81,7 @@ jobs:
             cat > ccnet.conf  <<EOF
             [Database]
             ENGINE = mysql
-            HOST = localhost
+            HOST = mariadb
             PORT = 3306
             USER = root
             PASSWD = ${{ secrets.MARIADB_PASSWORD }}
@@ -113,7 +114,7 @@ jobs:
             cat > seafile.conf  <<EOF
             [database]
             type = mysql
-            host = localhost
+            host = mariadb
             port = 3306
             user = root
             password = ${{ secrets.MARIADB_PASSWORD }}
