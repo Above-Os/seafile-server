@@ -15,7 +15,7 @@ jobs:
             MARIADB_PASSWORD: ${{ secrets.MARIADB_PASSWORD }}
             MARIADB_ROOT_PASSWORD: ${{ secrets.MARIADB_ROOT_PASSWORD }}
         ports:
-          - 3306
+          - 3306:3306
 
     steps:
         - name: install packages
@@ -42,7 +42,6 @@ jobs:
             
             git clone https://github.com/haiwen/libevhtp.git
             git clone https://github.com/haiwen/libsearpc.git
-            # git clone https://github.com/haiwen/seafile-server.git
 
         - name: compile libevhtp
           run: |
@@ -125,6 +124,20 @@ jobs:
 
         - name: try to run
           run: seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
+
+        - name: Archive code coverage results
+          uses: actions/upload-artifact@v3
+          with:
+            name: sea-server
+            path: server/seaf-server
+        
+        - name: Download a single artifact
+          uses: actions/download-artifact@v3
+          with:
+            name: sea-server
+        - run: |
+            chmod +x sea-server
+            ./sea-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
   
         # - name: install dependencies and test
         #   run: |
