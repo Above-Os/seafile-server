@@ -134,7 +134,7 @@ jobs:
 
         - name: try to run
           run: |
-            service sql start
+            sudo service sql start
             mysqladmin -u root password ${{ secrets.MARIADB_PASSWORD }}
             seaf-server -c ~/dev/conf -d ~/dev/seafile-data -D all -f -l - &
 
