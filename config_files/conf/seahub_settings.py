@@ -11,7 +11,7 @@ DATABASES = {
 FILE_SERVER_ROOT = 'http://127.0.0.1:8082'
 
 import os
-PROJECT_ROOT = '~/dev/source-code/seahub'
+PROJECT_ROOT = '/root/dev/source-code/seahub'
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'frontend/',

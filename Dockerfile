@@ -11,22 +11,22 @@ RUN apt-get update && \
     sudo apt-get install -y netcat unzip netbase ca-certificates apt-transport-https build-essential libxslt1-dev libffi-dev && \
     sudo apt-get install -y libpcre3-dev zlib1g-dev xz-utils nginx pkg-config poppler-utils libmemcached-dev libjwt-dev
 
-WORKDIR ~/dev/source-code
-COPY . ~/dev/source-code/seafile-server
-COPY ./config_files ~/dev
-RUN git clone https://github.com/haiwen/libevhtp.git && \
-    git clone https://github.com/haiwen/libsearpc.git && \
-    git clone https://github.com/lovehunter9/seahub.git
+WORKDIR /root/dev/source-code
+COPY . /root/dev/source-code/seafile-server
+COPY ./config_files /root/dev
+RUN git clone https://github.com/haiwen/libevhtp.git ~/dev/source-code/libevhtp && \
+    git clone https://github.com/haiwen/libsearpc.git ~/dev/source-code/libsearpc && \
+    git clone https://github.com/lovehunter9/seahub.git ~/dev/source-code/seahub
 
-WORKDIR ~/dev/source-code/libevhtp
+WORKDIR libevhtp
 RUN cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=OFF . && make && sudo make install && sudo ldconfig
 
-WORKDIR ~/dev/source-code/libsearpc
+WORKDIR ../libsearpc
 RUN ./autogen.sh && ./configure && make && sudo make install && sudo ldconfig
 
-WORKDIR ~/dev/source-code/seafile-server
+WORKDIR ../seafile-server
 RUN ./autogen.sh && ./configure --disable-fuse && make && sudo make install && sudo ldconfig
 
 EXPOSE 8000
 
-ENTRYPOINT ["seaf-server" "-c" "~/dev/conf" "-d" "~/dev/seafile-data" "-D" "all" "-f" "-l" "-" "&"]
+ENTRYPOINT ["seaf-server", "-c", "~/dev/conf", "-d", "~/dev/seafile-data", "-D", "all", "-f", "-l", "-", "&"]
