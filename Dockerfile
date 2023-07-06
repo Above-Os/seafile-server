@@ -12,16 +12,18 @@ RUN apt-get update && \
     sudo apt-get install -y libpcre3-dev zlib1g-dev xz-utils nginx pkg-config poppler-utils libmemcached-dev libjwt-dev \
 WORKDIR ~/dev/source-code
 COPY . ~/dev/source-code/seafile-server
-COPY /root/dev/source-code ~/dev/source-code
+RUN git clone https://github.com/haiwen/libevhtp.git && \
+    git clone https://github.com/haiwen/libsearpc.git && \
+    git clone https://github.com/lovehunter9/seahub.git
 
 WORKDIR ~/dev/source-code/libevhtp
-RUN sudo make install && sudo ldconfig
+RUN cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=OFF . && make && sudo make install && sudo ldconfig
 
 WORKDIR ~/dev/source-code/libsearpc
-RUN sudo make install && sudo ldconfig
+RUN ./autogen.sh && ./configure && make && sudo make install && sudo ldconfig
 
 WORKDIR ~/dev/source-code/seafile-server
-RUN sudo make install && sudo ldconfig
+RUN ./autogen.sh && ./configure --disable-fuse && make && sudo make install && sudo ldconfig
 
 EXPOSE 8000
 

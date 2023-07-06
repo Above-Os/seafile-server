@@ -1,4 +1,4 @@
-name: Seafile Server Build CI
+name: Seafile Server Docker Build CI
 
 on:
   workflow_dispatch:
