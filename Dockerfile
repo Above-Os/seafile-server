@@ -9,9 +9,11 @@ RUN apt-get update && \
     sudo apt-get install -y cmake re2c flex sqlite3 python-pip git libssl-dev libldap2-dev libonig-dev vim vim-scripts && \
     sudo apt-get install -y wget gcc autoconf automake mysql-client librados-dev libxml2-dev curl telnet && \
     sudo apt-get install -y netcat unzip netbase ca-certificates apt-transport-https build-essential libxslt1-dev libffi-dev && \
-    sudo apt-get install -y libpcre3-dev zlib1g-dev xz-utils nginx pkg-config poppler-utils libmemcached-dev libjwt-dev \
+    sudo apt-get install -y libpcre3-dev zlib1g-dev xz-utils nginx pkg-config poppler-utils libmemcached-dev libjwt-dev
+
 WORKDIR ~/dev/source-code
 COPY . ~/dev/source-code/seafile-server
+COPY ./config_files ~/dev
 RUN git clone https://github.com/haiwen/libevhtp.git && \
     git clone https://github.com/haiwen/libsearpc.git && \
     git clone https://github.com/lovehunter9/seahub.git
