@@ -12,7 +12,7 @@ RUN apt-get update && \
     sudo apt-get install -y libpcre3-dev zlib1g-dev xz-utils nginx pkg-config poppler-utils libmemcached-dev libjwt-dev \
 WORKDIR ~/dev/source-code
 COPY . ~/dev/source-code/seafile-server
-COPY ~/dev/source-code ~/dev/source-code
+COPY /root/dev/source-code ~/dev/source-code
 
 WORKDIR ~/dev/source-code/libevhtp
 RUN sudo make install && sudo ldconfig
