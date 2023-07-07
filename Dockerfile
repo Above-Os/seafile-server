@@ -14,9 +14,9 @@ RUN apt-get update && \
 WORKDIR /root/dev/source-code
 COPY . /root/dev/source-code/seafile-server
 COPY ./config_files /root/dev
-RUN git clone https://github.com/haiwen/libevhtp.git ~/dev/source-code/libevhtp && \
-    git clone https://github.com/haiwen/libsearpc.git ~/dev/source-code/libsearpc && \
-    git clone https://github.com/lovehunter9/seahub.git ~/dev/source-code/seahub
+RUN git clone https://github.com/haiwen/libevhtp.git /root/dev/source-code/libevhtp && \
+    git clone https://github.com/haiwen/libsearpc.git /root/dev/source-code/libsearpc && \
+    git clone https://github.com/lovehunter9/seahub.git /root/dev/source-code/seahub
 
 WORKDIR libevhtp
 RUN cmake -DEVHTP_DISABLE_SSL=ON -DEVHTP_BUILD_SHARED=OFF . && make && sudo make install && sudo ldconfig
