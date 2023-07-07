@@ -29,4 +29,4 @@ RUN ./autogen.sh && ./configure --disable-fuse && make && sudo make install && s
 
 EXPOSE 8000
 
-ENTRYPOINT ["seaf-server", "-c", "~/dev/conf", "-d", "~/dev/seafile-data", "-D", "all", "-f", "-l", "-", "&"]
+ENTRYPOINT ["seaf-server", "-c", "/root/dev/conf", "-d", "/root/dev/seafile-data", "-D", "all", "-f", "-l", "-", "&"]
