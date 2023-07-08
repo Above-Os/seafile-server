@@ -27,6 +27,6 @@ RUN ./autogen.sh && ./configure && make && sudo make install && sudo ldconfig
 WORKDIR ../seafile-server
 RUN ./autogen.sh && ./configure --disable-fuse && make && sudo make install && sudo ldconfig
 
-EXPOSE 8000
+EXPOSE 8082
 
 ENTRYPOINT ["seaf-server", "-c", "/root/dev/conf", "-d", "/root/dev/seafile-data", "-D", "all", "-f", "-l", "-", "&"]
