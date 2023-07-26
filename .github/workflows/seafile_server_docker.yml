@@ -12,6 +12,8 @@ name: Publish Seafile Server Docker image
 on:
   workflow_dispatch:
   push:
+    branches:
+      - master
   release:
     types: [published]
 

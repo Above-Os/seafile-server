@@ -24,998 +24,12 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `ccnet` /*!40100 DEFAULT CHARACTER SET 
 USE `ccnet`;
 
 --
--- Table structure for table `Binding`
---
-
-DROP TABLE IF EXISTS `Binding`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Binding` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
-  `peer_id` char(41) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `peer_id` (`peer_id`),
-  KEY `email` (`email`(20))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Binding`
---
-
-LOCK TABLES `Binding` WRITE;
-/*!40000 ALTER TABLE `Binding` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Binding` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `EmailUser`
---
-
-DROP TABLE IF EXISTS `EmailUser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `EmailUser` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
-  `passwd` varchar(256) DEFAULT NULL,
-  `is_staff` tinyint(1) NOT NULL,
-  `is_active` tinyint(1) NOT NULL,
-  `ctime` bigint DEFAULT NULL,
-  `reference_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `reference_id` (`reference_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `EmailUser`
---
-
-LOCK TABLES `EmailUser` WRITE;
-/*!40000 ALTER TABLE `EmailUser` DISABLE KEYS */;
-INSERT INTO `EmailUser` VALUES (1,'8373ee7d41a448088c8da8bb9976dc4c@auth.local','PBKDF2SHA256$10000$6ee85f609cda7eda0524c2317b03d450612961c9411077ab61ed9ab59b857ab5$f9d8dd77c73ba7b9b5d164c27c4f59aaf3c27a6a1330c2e66b966bb39979d4e8',1,1,1690354251415236,NULL);
-/*!40000 ALTER TABLE `EmailUser` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Group`
---
-
-DROP TABLE IF EXISTS `Group`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Group` (
-  `group_id` bigint NOT NULL AUTO_INCREMENT,
-  `group_name` varchar(255) DEFAULT NULL,
-  `creator_name` varchar(255) DEFAULT NULL,
-  `timestamp` bigint DEFAULT NULL,
-  `type` varchar(32) DEFAULT NULL,
-  `parent_group_id` int DEFAULT NULL,
-  PRIMARY KEY (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Group`
---
-
-LOCK TABLES `Group` WRITE;
-/*!40000 ALTER TABLE `Group` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Group` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `GroupDNPair`
---
-
-DROP TABLE IF EXISTS `GroupDNPair`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `GroupDNPair` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `group_id` int DEFAULT NULL,
-  `dn` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `GroupDNPair`
---
-
-LOCK TABLES `GroupDNPair` WRITE;
-/*!40000 ALTER TABLE `GroupDNPair` DISABLE KEYS */;
-/*!40000 ALTER TABLE `GroupDNPair` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `GroupStructure`
---
-
-DROP TABLE IF EXISTS `GroupStructure`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `GroupStructure` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `group_id` int DEFAULT NULL,
-  `path` varchar(1024) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `group_id` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `GroupStructure`
---
-
-LOCK TABLES `GroupStructure` WRITE;
-/*!40000 ALTER TABLE `GroupStructure` DISABLE KEYS */;
-/*!40000 ALTER TABLE `GroupStructure` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `GroupUser`
---
-
-DROP TABLE IF EXISTS `GroupUser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `GroupUser` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `group_id` bigint DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `is_staff` tinyint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `group_id` (`group_id`,`user_name`),
-  KEY `user_name` (`user_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `GroupUser`
---
-
-LOCK TABLES `GroupUser` WRITE;
-/*!40000 ALTER TABLE `GroupUser` DISABLE KEYS */;
-/*!40000 ALTER TABLE `GroupUser` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `LDAPConfig`
---
-
-DROP TABLE IF EXISTS `LDAPConfig`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `LDAPConfig` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `cfg_group` varchar(255) NOT NULL,
-  `cfg_key` varchar(255) NOT NULL,
-  `value` varchar(255) DEFAULT NULL,
-  `property` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `LDAPConfig`
---
-
-LOCK TABLES `LDAPConfig` WRITE;
-/*!40000 ALTER TABLE `LDAPConfig` DISABLE KEYS */;
-/*!40000 ALTER TABLE `LDAPConfig` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `LDAPUsers`
---
-
-DROP TABLE IF EXISTS `LDAPUsers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `LDAPUsers` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `is_staff` tinyint(1) NOT NULL,
-  `is_active` tinyint(1) NOT NULL,
-  `extra_attrs` text,
-  `reference_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `reference_id` (`reference_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `LDAPUsers`
---
-
-LOCK TABLES `LDAPUsers` WRITE;
-/*!40000 ALTER TABLE `LDAPUsers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `LDAPUsers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Organization`
---
-
-DROP TABLE IF EXISTS `Organization`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Organization` (
-  `org_id` bigint NOT NULL AUTO_INCREMENT,
-  `org_name` varchar(255) DEFAULT NULL,
-  `url_prefix` varchar(255) DEFAULT NULL,
-  `creator` varchar(255) DEFAULT NULL,
-  `ctime` bigint DEFAULT NULL,
-  PRIMARY KEY (`org_id`),
-  UNIQUE KEY `url_prefix` (`url_prefix`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Organization`
---
-
-LOCK TABLES `Organization` WRITE;
-/*!40000 ALTER TABLE `Organization` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Organization` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `OrgGroup`
---
-
-DROP TABLE IF EXISTS `OrgGroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `OrgGroup` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `org_id` int DEFAULT NULL,
-  `group_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `org_id` (`org_id`,`group_id`),
-  KEY `group_id` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `OrgGroup`
---
-
-LOCK TABLES `OrgGroup` WRITE;
-/*!40000 ALTER TABLE `OrgGroup` DISABLE KEYS */;
-/*!40000 ALTER TABLE `OrgGroup` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `OrgUser`
---
-
-DROP TABLE IF EXISTS `OrgUser`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `OrgUser` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `org_id` int DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `is_staff` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `org_id` (`org_id`,`email`),
-  KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `OrgUser`
---
-
-LOCK TABLES `OrgUser` WRITE;
-/*!40000 ALTER TABLE `OrgUser` DISABLE KEYS */;
-/*!40000 ALTER TABLE `OrgUser` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `UserRole`
---
-
-DROP TABLE IF EXISTS `UserRole`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `UserRole` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `UserRole`
---
-
-LOCK TABLES `UserRole` WRITE;
-/*!40000 ALTER TABLE `UserRole` DISABLE KEYS */;
-/*!40000 ALTER TABLE `UserRole` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Current Database: `seafile`
 --
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `seafile` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `seafile`;
-
---
--- Table structure for table `Branch`
---
-
-DROP TABLE IF EXISTS `Branch`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Branch` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `name` varchar(10) DEFAULT NULL,
-  `repo_id` char(41) DEFAULT NULL,
-  `commit_id` char(41) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`,`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Branch`
---
-
-LOCK TABLES `Branch` WRITE;
-/*!40000 ALTER TABLE `Branch` DISABLE KEYS */;
-INSERT INTO `Branch` VALUES (1,'master','41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','f8e30a57ecb339890e50fec392184a73f9866ece'),(2,'master','22d69746-c8e9-40be-9598-90215e6adbdb','6d1dd48b72ce691eef71a1fa9ab8206d4f6c9efe');
-/*!40000 ALTER TABLE `Branch` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `GarbageRepos`
---
-
-DROP TABLE IF EXISTS `GarbageRepos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `GarbageRepos` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(36) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `GarbageRepos`
---
-
-LOCK TABLES `GarbageRepos` WRITE;
-/*!40000 ALTER TABLE `GarbageRepos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `GarbageRepos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `InnerPubRepo`
---
-
-DROP TABLE IF EXISTS `InnerPubRepo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `InnerPubRepo` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `permission` char(15) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `InnerPubRepo`
---
-
-LOCK TABLES `InnerPubRepo` WRITE;
-/*!40000 ALTER TABLE `InnerPubRepo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `InnerPubRepo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `OrgQuota`
---
-
-DROP TABLE IF EXISTS `OrgQuota`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `OrgQuota` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `org_id` int DEFAULT NULL,
-  `quota` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `org_id` (`org_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `OrgQuota`
---
-
-LOCK TABLES `OrgQuota` WRITE;
-/*!40000 ALTER TABLE `OrgQuota` DISABLE KEYS */;
-/*!40000 ALTER TABLE `OrgQuota` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `OrgUserQuota`
---
-
-DROP TABLE IF EXISTS `OrgUserQuota`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `OrgUserQuota` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `org_id` int DEFAULT NULL,
-  `user` varchar(255) DEFAULT NULL,
-  `quota` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `org_id` (`org_id`,`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `OrgUserQuota`
---
-
-LOCK TABLES `OrgUserQuota` WRITE;
-/*!40000 ALTER TABLE `OrgUserQuota` DISABLE KEYS */;
-/*!40000 ALTER TABLE `OrgUserQuota` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `Repo`
---
-
-DROP TABLE IF EXISTS `Repo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `Repo` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `Repo`
---
-
-LOCK TABLES `Repo` WRITE;
-/*!40000 ALTER TABLE `Repo` DISABLE KEYS */;
-INSERT INTO `Repo` VALUES (2,'22d69746-c8e9-40be-9598-90215e6adbdb'),(1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c');
-/*!40000 ALTER TABLE `Repo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoFileCount`
---
-
-DROP TABLE IF EXISTS `RepoFileCount`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoFileCount` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(36) DEFAULT NULL,
-  `file_count` bigint unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoFileCount`
---
-
-LOCK TABLES `RepoFileCount` WRITE;
-/*!40000 ALTER TABLE `RepoFileCount` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RepoFileCount` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoGroup`
---
-
-DROP TABLE IF EXISTS `RepoGroup`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoGroup` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `group_id` int DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `permission` char(15) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `group_id` (`group_id`,`repo_id`),
-  KEY `repo_id` (`repo_id`),
-  KEY `user_name` (`user_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoGroup`
---
-
-LOCK TABLES `RepoGroup` WRITE;
-/*!40000 ALTER TABLE `RepoGroup` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RepoGroup` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoHead`
---
-
-DROP TABLE IF EXISTS `RepoHead`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoHead` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `branch_name` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoHead`
---
-
-LOCK TABLES `RepoHead` WRITE;
-/*!40000 ALTER TABLE `RepoHead` DISABLE KEYS */;
-INSERT INTO `RepoHead` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','master'),(2,'22d69746-c8e9-40be-9598-90215e6adbdb','master');
-/*!40000 ALTER TABLE `RepoHead` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoHistoryLimit`
---
-
-DROP TABLE IF EXISTS `RepoHistoryLimit`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoHistoryLimit` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `days` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoHistoryLimit`
---
-
-LOCK TABLES `RepoHistoryLimit` WRITE;
-/*!40000 ALTER TABLE `RepoHistoryLimit` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RepoHistoryLimit` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoInfo`
---
-
-DROP TABLE IF EXISTS `RepoInfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoInfo` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(36) DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `update_time` bigint DEFAULT NULL,
-  `version` int DEFAULT NULL,
-  `is_encrypted` int DEFAULT NULL,
-  `last_modifier` varchar(255) DEFAULT NULL,
-  `status` int DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoInfo`
---
-
-LOCK TABLES `RepoInfo` WRITE;
-/*!40000 ALTER TABLE `RepoInfo` DISABLE KEYS */;
-INSERT INTO `RepoInfo` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','My Library Template',1690354184,1,0,'system',0),(2,'22d69746-c8e9-40be-9598-90215e6adbdb','My Library',1690354274,1,0,'8373ee7d41a448088c8da8bb9976dc4c@auth.local',0);
-/*!40000 ALTER TABLE `RepoInfo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoOwner`
---
-
-DROP TABLE IF EXISTS `RepoOwner`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoOwner` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `owner_id` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`),
-  KEY `owner_id` (`owner_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoOwner`
---
-
-LOCK TABLES `RepoOwner` WRITE;
-/*!40000 ALTER TABLE `RepoOwner` DISABLE KEYS */;
-INSERT INTO `RepoOwner` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','System'),(2,'22d69746-c8e9-40be-9598-90215e6adbdb','8373ee7d41a448088c8da8bb9976dc4c@auth.local');
-/*!40000 ALTER TABLE `RepoOwner` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoSize`
---
-
-DROP TABLE IF EXISTS `RepoSize`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoSize` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `size` bigint unsigned DEFAULT NULL,
-  `head_id` char(41) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoSize`
---
-
-LOCK TABLES `RepoSize` WRITE;
-/*!40000 ALTER TABLE `RepoSize` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RepoSize` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoTokenPeerInfo`
---
-
-DROP TABLE IF EXISTS `RepoTokenPeerInfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoTokenPeerInfo` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `token` char(41) DEFAULT NULL,
-  `peer_id` char(41) DEFAULT NULL,
-  `peer_ip` varchar(50) DEFAULT NULL,
-  `peer_name` varchar(255) DEFAULT NULL,
-  `sync_time` bigint DEFAULT NULL,
-  `client_ver` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `token` (`token`),
-  KEY `peer_id` (`peer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoTokenPeerInfo`
---
-
-LOCK TABLES `RepoTokenPeerInfo` WRITE;
-/*!40000 ALTER TABLE `RepoTokenPeerInfo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RepoTokenPeerInfo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoTrash`
---
-
-DROP TABLE IF EXISTS `RepoTrash`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoTrash` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(36) DEFAULT NULL,
-  `repo_name` varchar(255) DEFAULT NULL,
-  `head_id` char(40) DEFAULT NULL,
-  `owner_id` varchar(255) DEFAULT NULL,
-  `size` bigint DEFAULT NULL,
-  `org_id` int DEFAULT NULL,
-  `del_time` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`),
-  KEY `owner_id` (`owner_id`),
-  KEY `org_id` (`org_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoTrash`
---
-
-LOCK TABLES `RepoTrash` WRITE;
-/*!40000 ALTER TABLE `RepoTrash` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RepoTrash` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoUserToken`
---
-
-DROP TABLE IF EXISTS `RepoUserToken`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoUserToken` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `token` char(41) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`,`token`),
-  KEY `token` (`token`),
-  KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoUserToken`
---
-
-LOCK TABLES `RepoUserToken` WRITE;
-/*!40000 ALTER TABLE `RepoUserToken` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RepoUserToken` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `RepoValidSince`
---
-
-DROP TABLE IF EXISTS `RepoValidSince`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `RepoValidSince` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `timestamp` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `RepoValidSince`
---
-
-LOCK TABLES `RepoValidSince` WRITE;
-/*!40000 ALTER TABLE `RepoValidSince` DISABLE KEYS */;
-/*!40000 ALTER TABLE `RepoValidSince` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `SeafileConf`
---
-
-DROP TABLE IF EXISTS `SeafileConf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `SeafileConf` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `cfg_group` varchar(255) NOT NULL,
-  `cfg_key` varchar(255) NOT NULL,
-  `value` varchar(255) DEFAULT NULL,
-  `property` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `SeafileConf`
---
-
-LOCK TABLES `SeafileConf` WRITE;
-/*!40000 ALTER TABLE `SeafileConf` DISABLE KEYS */;
-/*!40000 ALTER TABLE `SeafileConf` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `SharedRepo`
---
-
-DROP TABLE IF EXISTS `SharedRepo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `SharedRepo` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `from_email` varchar(255) DEFAULT NULL,
-  `to_email` varchar(255) DEFAULT NULL,
-  `permission` char(15) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `repo_id` (`repo_id`),
-  KEY `from_email` (`from_email`),
-  KEY `to_email` (`to_email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `SharedRepo`
---
-
-LOCK TABLES `SharedRepo` WRITE;
-/*!40000 ALTER TABLE `SharedRepo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `SharedRepo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `SystemInfo`
---
-
-DROP TABLE IF EXISTS `SystemInfo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `SystemInfo` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `info_key` varchar(256) DEFAULT NULL,
-  `info_value` varchar(1024) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `SystemInfo`
---
-
-LOCK TABLES `SystemInfo` WRITE;
-/*!40000 ALTER TABLE `SystemInfo` DISABLE KEYS */;
-INSERT INTO `SystemInfo` VALUES (1,'default_repo_id','41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c');
-/*!40000 ALTER TABLE `SystemInfo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `UserQuota`
---
-
-DROP TABLE IF EXISTS `UserQuota`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `UserQuota` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `user` varchar(255) DEFAULT NULL,
-  `quota` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `UserQuota`
---
-
-LOCK TABLES `UserQuota` WRITE;
-/*!40000 ALTER TABLE `UserQuota` DISABLE KEYS */;
-/*!40000 ALTER TABLE `UserQuota` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `UserShareQuota`
---
-
-DROP TABLE IF EXISTS `UserShareQuota`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `UserShareQuota` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `user` varchar(255) DEFAULT NULL,
-  `quota` bigint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user` (`user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `UserShareQuota`
---
-
-LOCK TABLES `UserShareQuota` WRITE;
-/*!40000 ALTER TABLE `UserShareQuota` DISABLE KEYS */;
-/*!40000 ALTER TABLE `UserShareQuota` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `VirtualRepo`
---
-
-DROP TABLE IF EXISTS `VirtualRepo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `VirtualRepo` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(36) DEFAULT NULL,
-  `origin_repo` char(36) DEFAULT NULL,
-  `path` text,
-  `base_commit` char(40) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`),
-  KEY `origin_repo` (`origin_repo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `VirtualRepo`
---
-
-LOCK TABLES `VirtualRepo` WRITE;
-/*!40000 ALTER TABLE `VirtualRepo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `VirtualRepo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `WebAP`
---
-
-DROP TABLE IF EXISTS `WebAP`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `WebAP` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
-  `access_property` char(10) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `WebAP`
---
-
-LOCK TABLES `WebAP` WRITE;
-/*!40000 ALTER TABLE `WebAP` DISABLE KEYS */;
-/*!40000 ALTER TABLE `WebAP` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `WebUploadTempFiles`
---
-
-DROP TABLE IF EXISTS `WebUploadTempFiles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `WebUploadTempFiles` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(40) NOT NULL,
-  `file_path` text NOT NULL,
-  `tmp_file_path` text NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `repo_id` (`repo_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `WebUploadTempFiles`
---
-
-LOCK TABLES `WebUploadTempFiles` WRITE;
-/*!40000 ALTER TABLE `WebUploadTempFiles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `WebUploadTempFiles` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Current Database: `seahub`
@@ -1210,7 +224,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=318 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=314 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1219,7 +233,7 @@ CREATE TABLE `auth_permission` (
 
 LOCK TABLES `auth_permission` WRITE;
 /*!40000 ALTER TABLE `auth_permission` DISABLE KEYS */;
-INSERT INTO `auth_permission` VALUES (1,'Can add content type',1,'add_contenttype'),(2,'Can change content type',1,'change_contenttype'),(3,'Can delete content type',1,'delete_contenttype'),(4,'Can view content type',1,'view_contenttype'),(5,'Can change config',2,'change_config'),(6,'Can add session',3,'add_session'),(7,'Can change session',3,'change_session'),(8,'Can delete session',3,'delete_session'),(9,'Can view session',3,'view_session'),(10,'Can add client login token',4,'add_clientlogintoken'),(11,'Can change client login token',4,'change_clientlogintoken'),(12,'Can delete client login token',4,'delete_clientlogintoken'),(13,'Can view client login token',4,'view_clientlogintoken'),(14,'Can add commands last check',5,'add_commandslastcheck'),(15,'Can change commands last check',5,'change_commandslastcheck'),(16,'Can delete commands last check',5,'delete_commandslastcheck'),(17,'Can view commands last check',5,'view_commandslastcheck'),(18,'Can add device token',6,'add_devicetoken'),(19,'Can change device token',6,'change_devicetoken'),(20,'Can delete device token',6,'delete_devicetoken'),(21,'Can view device token',6,'view_devicetoken'),(22,'Can add file comment',7,'add_filecomment'),(23,'Can change file comment',7,'change_filecomment'),(24,'Can delete file comment',7,'delete_filecomment'),(25,'Can view file comment',7,'view_filecomment'),(26,'Can add user last login',8,'add_userlastlogin'),(27,'Can change user last login',8,'change_userlastlogin'),(28,'Can delete user last login',8,'delete_userlastlogin'),(29,'Can view user last login',8,'view_userlastlogin'),(30,'Can add user starred files',9,'add_userstarredfiles'),(31,'Can change user starred files',9,'change_userstarredfiles'),(32,'Can delete user starred files',9,'delete_userstarredfiles'),(33,'Can view user starred files',9,'view_userstarredfiles'),(34,'Can add repo secret key',10,'add_reposecretkey'),(35,'Can change repo secret key',10,'change_reposecretkey'),(36,'Can delete repo secret key',10,'delete_reposecretkey'),(37,'Can view repo secret key',10,'view_reposecretkey'),(38,'Can add external department',11,'add_externaldepartment'),(39,'Can change external department',11,'change_externaldepartment'),(40,'Can delete external department',11,'delete_externaldepartment'),(41,'Can view external department',11,'view_externaldepartment'),(42,'Can add social auth user',12,'add_socialauthuser'),(43,'Can change social auth user',12,'change_socialauthuser'),(44,'Can delete social auth user',12,'delete_socialauthuser'),(45,'Can view social auth user',12,'view_socialauthuser'),(46,'Can add user monitored repos',13,'add_usermonitoredrepos'),(47,'Can change user monitored repos',13,'change_usermonitoredrepos'),(48,'Can delete user monitored repos',13,'delete_usermonitoredrepos'),(49,'Can view user monitored repos',13,'view_usermonitoredrepos'),(50,'Can add permission',14,'add_permission'),(51,'Can change permission',14,'change_permission'),(52,'Can delete permission',14,'delete_permission'),(53,'Can view permission',14,'view_permission'),(54,'Can add group',15,'add_group'),(55,'Can change group',15,'change_group'),(56,'Can delete group',15,'delete_group'),(57,'Can view group',15,'view_group'),(58,'Can add user',16,'add_user'),(59,'Can change user',16,'change_user'),(60,'Can delete user',16,'delete_user'),(61,'Can view user',16,'view_user'),(62,'Can add registration profile',17,'add_registrationprofile'),(63,'Can change registration profile',17,'change_registrationprofile'),(64,'Can delete registration profile',17,'delete_registrationprofile'),(65,'Can view registration profile',17,'view_registrationprofile'),(66,'Can add captcha store',18,'add_captchastore'),(67,'Can change captcha store',18,'change_captchastore'),(68,'Can delete captcha store',18,'delete_captchastore'),(69,'Can view captcha store',18,'view_captchastore'),(70,'Can add constance',19,'add_constance'),(71,'Can change constance',19,'change_constance'),(72,'Can delete constance',19,'delete_constance'),(73,'Can view constance',19,'view_constance'),(74,'Can add Terms and Conditions',20,'add_termsandconditions'),(75,'Can change Terms and Conditions',20,'change_termsandconditions'),(76,'Can delete Terms and Conditions',20,'delete_termsandconditions'),(77,'Can view Terms and Conditions',20,'view_termsandconditions'),(78,'Can add User Terms and Conditions',21,'add_usertermsandconditions'),(79,'Can change User Terms and Conditions',21,'change_usertermsandconditions'),(80,'Can delete User Terms and Conditions',21,'delete_usertermsandconditions'),(81,'Can view User Terms and Conditions',21,'view_usertermsandconditions'),(82,'Can add token',22,'add_token'),(83,'Can change token',22,'change_token'),(84,'Can delete token',22,'delete_token'),(85,'Can view token',22,'view_token'),(86,'Can add token v2',23,'add_tokenv2'),(87,'Can change token v2',23,'change_tokenv2'),(88,'Can delete token v2',23,'delete_tokenv2'),(89,'Can view token v2',23,'view_tokenv2'),(90,'Can add avatar',24,'add_avatar'),(91,'Can change avatar',24,'change_avatar'),(92,'Can delete avatar',24,'delete_avatar'),(93,'Can view avatar',24,'view_avatar'),(94,'Can add group avatar',25,'add_groupavatar'),(95,'Can change group avatar',25,'change_groupavatar'),(96,'Can delete group avatar',25,'delete_groupavatar'),(97,'Can view group avatar',25,'view_groupavatar'),(98,'Can add contact',26,'add_contact'),(99,'Can change contact',26,'change_contact'),(100,'Can delete contact',26,'delete_contact'),(101,'Can view contact',26,'view_contact'),(102,'Can add draft',27,'add_draft'),(103,'Can change draft',27,'change_draft'),(104,'Can delete draft',27,'delete_draft'),(105,'Can view draft',27,'view_draft'),(106,'Can add draft reviewer',28,'add_draftreviewer'),(107,'Can change draft reviewer',28,'change_draftreviewer'),(108,'Can delete draft reviewer',28,'delete_draftreviewer'),(109,'Can view draft reviewer',28,'view_draftreviewer'),(110,'Can add institution',29,'add_institution'),(111,'Can change institution',29,'change_institution'),(112,'Can delete institution',29,'delete_institution'),(113,'Can view institution',29,'view_institution'),(114,'Can add institution admin',30,'add_institutionadmin'),(115,'Can change institution admin',30,'change_institutionadmin'),(116,'Can delete institution admin',30,'delete_institutionadmin'),(117,'Can view institution admin',30,'view_institutionadmin'),(118,'Can add institution quota',31,'add_institutionquota'),(119,'Can change institution quota',31,'change_institutionquota'),(120,'Can delete institution quota',31,'delete_institutionquota'),(121,'Can view institution quota',31,'view_institutionquota'),(122,'Can add invitation',32,'add_invitation'),(123,'Can change invitation',32,'change_invitation'),(124,'Can delete invitation',32,'delete_invitation'),(125,'Can view invitation',32,'view_invitation'),(126,'Can add repo share invitation',33,'add_reposhareinvitation'),(127,'Can change repo share invitation',33,'change_reposhareinvitation'),(128,'Can delete repo share invitation',33,'delete_reposhareinvitation'),(129,'Can view repo share invitation',33,'view_reposhareinvitation'),(130,'Can add wiki',34,'add_wiki'),(131,'Can change wiki',34,'change_wiki'),(132,'Can delete wiki',34,'delete_wiki'),(133,'Can view wiki',34,'view_wiki'),(134,'Can add notification',35,'add_notification'),(135,'Can change notification',35,'change_notification'),(136,'Can delete notification',35,'delete_notification'),(137,'Can view notification',35,'view_notification'),(138,'Can add user notification',36,'add_usernotification'),(139,'Can change user notification',36,'change_usernotification'),(140,'Can delete user notification',36,'delete_usernotification'),(141,'Can view user notification',36,'view_usernotification'),(142,'Can add user options',37,'add_useroptions'),(143,'Can change user options',37,'change_useroptions'),(144,'Can delete user options',37,'delete_useroptions'),(145,'Can view user options',37,'view_useroptions'),(146,'Can add only office doc key',38,'add_onlyofficedockey'),(147,'Can change only office doc key',38,'change_onlyofficedockey'),(148,'Can delete only office doc key',38,'delete_onlyofficedockey'),(149,'Can view only office doc key',38,'view_onlyofficedockey'),(150,'Can add detailed profile',39,'add_detailedprofile'),(151,'Can change detailed profile',39,'change_detailedprofile'),(152,'Can delete detailed profile',39,'delete_detailedprofile'),(153,'Can view detailed profile',39,'view_detailedprofile'),(154,'Can add profile',40,'add_profile'),(155,'Can change profile',40,'change_profile'),(156,'Can delete profile',40,'delete_profile'),(157,'Can view profile',40,'view_profile'),(158,'Can add anonymous share',41,'add_anonymousshare'),(159,'Can change anonymous share',41,'change_anonymousshare'),(160,'Can delete anonymous share',41,'delete_anonymousshare'),(161,'Can view anonymous share',41,'view_anonymousshare'),(162,'Can add extra groups share permission',42,'add_extragroupssharepermission'),(163,'Can change extra groups share permission',42,'change_extragroupssharepermission'),(164,'Can delete extra groups share permission',42,'delete_extragroupssharepermission'),(165,'Can view extra groups share permission',42,'view_extragroupssharepermission'),(166,'Can add extra share permission',43,'add_extrasharepermission'),(167,'Can change extra share permission',43,'change_extrasharepermission'),(168,'Can delete extra share permission',43,'delete_extrasharepermission'),(169,'Can view extra share permission',43,'view_extrasharepermission'),(170,'Can add file share',44,'add_fileshare'),(171,'Can change file share',44,'change_fileshare'),(172,'Can delete file share',44,'delete_fileshare'),(173,'Can view file share',44,'view_fileshare'),(174,'Can add org file share',45,'add_orgfileshare'),(175,'Can change org file share',45,'change_orgfileshare'),(176,'Can delete org file share',45,'delete_orgfileshare'),(177,'Can view org file share',45,'view_orgfileshare'),(178,'Can add private file dir share',46,'add_privatefiledirshare'),(179,'Can change private file dir share',46,'change_privatefiledirshare'),(180,'Can delete private file dir share',46,'delete_privatefiledirshare'),(181,'Can view private file dir share',46,'view_privatefiledirshare'),(182,'Can add upload link share',47,'add_uploadlinkshare'),(183,'Can change upload link share',47,'change_uploadlinkshare'),(184,'Can delete upload link share',47,'delete_uploadlinkshare'),(185,'Can view upload link share',47,'view_uploadlinkshare'),(186,'Can add custom share permissions',48,'add_customsharepermissions'),(187,'Can change custom share permissions',48,'change_customsharepermissions'),(188,'Can delete custom share permissions',48,'delete_customsharepermissions'),(189,'Can view custom share permissions',48,'view_customsharepermissions'),(190,'Can add admin log',49,'add_adminlog'),(191,'Can change admin log',49,'change_adminlog'),(192,'Can delete admin log',49,'delete_adminlog'),(193,'Can view admin log',49,'view_adminlog'),(194,'Can add file tag',50,'add_filetag'),(195,'Can change file tag',50,'change_filetag'),(196,'Can delete file tag',50,'delete_filetag'),(197,'Can view file tag',50,'view_filetag'),(198,'Can add file uuid map',51,'add_fileuuidmap'),(199,'Can change file uuid map',51,'change_fileuuidmap'),(200,'Can delete file uuid map',51,'delete_fileuuidmap'),(201,'Can view file uuid map',51,'view_fileuuidmap'),(202,'Can add tags',52,'add_tags'),(203,'Can change tags',52,'change_tags'),(204,'Can delete tags',52,'delete_tags'),(205,'Can view tags',52,'view_tags'),(206,'Can add revision tags',53,'add_revisiontags'),(207,'Can change revision tags',53,'change_revisiontags'),(208,'Can delete revision tags',53,'delete_revisiontags'),(209,'Can view revision tags',53,'view_revisiontags'),(210,'Can add tags',54,'add_tags'),(211,'Can change tags',54,'change_tags'),(212,'Can delete tags',54,'delete_tags'),(213,'Can view tags',54,'view_tags'),(214,'Can add phone device',55,'add_phonedevice'),(215,'Can change phone device',55,'change_phonedevice'),(216,'Can delete phone device',55,'delete_phonedevice'),(217,'Can view phone device',55,'view_phonedevice'),(218,'Can add static device',56,'add_staticdevice'),(219,'Can change static device',56,'change_staticdevice'),(220,'Can delete static device',56,'delete_staticdevice'),(221,'Can view static device',56,'view_staticdevice'),(222,'Can add static token',57,'add_statictoken'),(223,'Can change static token',57,'change_statictoken'),(224,'Can delete static token',57,'delete_statictoken'),(225,'Can view static token',57,'view_statictoken'),(226,'Can add TOTP device',58,'add_totpdevice'),(227,'Can change TOTP device',58,'change_totpdevice'),(228,'Can delete TOTP device',58,'delete_totpdevice'),(229,'Can view TOTP device',58,'view_totpdevice'),(230,'Can add admin role',59,'add_adminrole'),(231,'Can change admin role',59,'change_adminrole'),(232,'Can delete admin role',59,'delete_adminrole'),(233,'Can view admin role',59,'view_adminrole'),(234,'Can add trusted ip',60,'add_trustedip'),(235,'Can change trusted ip',60,'change_trustedip'),(236,'Can delete trusted ip',60,'delete_trustedip'),(237,'Can view trusted ip',60,'view_trustedip'),(238,'Can add repo tags',61,'add_repotags'),(239,'Can change repo tags',61,'change_repotags'),(240,'Can delete repo tags',61,'delete_repotags'),(241,'Can view repo tags',61,'view_repotags'),(242,'Can add file tags',62,'add_filetags'),(243,'Can change file tags',62,'change_filetags'),(244,'Can delete file tags',62,'delete_filetags'),(245,'Can view file tags',62,'view_filetags'),(246,'Can add related files',63,'add_relatedfiles'),(247,'Can change related files',63,'change_relatedfiles'),(248,'Can delete related files',63,'delete_relatedfiles'),(249,'Can view related files',63,'view_relatedfiles'),(250,'Can add file participant',64,'add_fileparticipant'),(251,'Can change file participant',64,'change_fileparticipant'),(252,'Can delete file participant',64,'delete_fileparticipant'),(253,'Can view file participant',64,'view_fileparticipant'),(254,'Can add repo api tokens',65,'add_repoapitokens'),(255,'Can change repo api tokens',65,'change_repoapitokens'),(256,'Can delete repo api tokens',65,'delete_repoapitokens'),(257,'Can view repo api tokens',65,'view_repoapitokens'),(258,'Can add abuse report',66,'add_abusereport'),(259,'Can change abuse report',66,'change_abusereport'),(260,'Can delete abuse report',66,'delete_abusereport'),(261,'Can view abuse report',66,'view_abusereport'),(262,'Can add repo auto delete',67,'add_repoautodelete'),(263,'Can change repo auto delete',67,'change_repoautodelete'),(264,'Can delete repo auto delete',67,'delete_repoautodelete'),(265,'Can view repo auto delete',67,'view_repoautodelete'),(266,'Can add ocm share',68,'add_ocmshare'),(267,'Can change ocm share',68,'change_ocmshare'),(268,'Can delete ocm share',68,'delete_ocmshare'),(269,'Can view ocm share',68,'view_ocmshare'),(270,'Can add ocm share received',69,'add_ocmsharereceived'),(271,'Can change ocm share received',69,'change_ocmsharereceived'),(272,'Can delete ocm share received',69,'delete_ocmsharereceived'),(273,'Can view ocm share received',69,'view_ocmsharereceived'),(274,'Can add received shares',70,'add_receivedshares'),(275,'Can change received shares',70,'change_receivedshares'),(276,'Can delete received shares',70,'delete_receivedshares'),(277,'Can view received shares',70,'view_receivedshares'),(278,'Can add user login log',71,'add_userloginlog'),(279,'Can change user login log',71,'change_userloginlog'),(280,'Can delete user login log',71,'delete_userloginlog'),(281,'Can view user login log',71,'view_userloginlog'),(282,'Can add org member quota',72,'add_orgmemberquota'),(283,'Can change org member quota',72,'change_orgmemberquota'),(284,'Can delete org member quota',72,'delete_orgmemberquota'),(285,'Can view org member quota',72,'view_orgmemberquota'),(286,'Can add org settings',73,'add_orgsettings'),(287,'Can change org settings',73,'change_orgsettings'),(288,'Can delete org settings',73,'delete_orgsettings'),(289,'Can view org settings',73,'view_orgsettings'),(290,'Can add org saml config',74,'add_orgsamlconfig'),(291,'Can change org saml config',74,'change_orgsamlconfig'),(292,'Can delete org saml config',74,'delete_orgsamlconfig'),(293,'Can view org saml config',74,'view_orgsamlconfig'),(294,'Can add org admin settings',75,'add_orgadminsettings'),(295,'Can change org admin settings',75,'change_orgadminsettings'),(296,'Can delete org admin settings',75,'delete_orgadminsettings'),(297,'Can view org admin settings',75,'view_orgadminsettings'),(298,'Can add proxy granting ticket',76,'add_proxygrantingticket'),(299,'Can change proxy granting ticket',76,'change_proxygrantingticket'),(300,'Can delete proxy granting ticket',76,'delete_proxygrantingticket'),(301,'Can view proxy granting ticket',76,'view_proxygrantingticket'),(302,'Can add session ticket',77,'add_sessionticket'),(303,'Can change session ticket',77,'change_sessionticket'),(304,'Can delete session ticket',77,'delete_sessionticket'),(305,'Can view session ticket',77,'view_sessionticket'),(306,'Can add seadoc history name',78,'add_seadochistoryname'),(307,'Can change seadoc history name',78,'change_seadochistoryname'),(308,'Can delete seadoc history name',78,'delete_seadochistoryname'),(309,'Can view seadoc history name',78,'view_seadochistoryname'),(310,'Can add seadoc draft',79,'add_seadocdraft'),(311,'Can change seadoc draft',79,'change_seadocdraft'),(312,'Can delete seadoc draft',79,'delete_seadocdraft'),(313,'Can view seadoc draft',79,'view_seadocdraft'),(314,'Can add seadoc revision',80,'add_seadocrevision'),(315,'Can change seadoc revision',80,'change_seadocrevision'),(316,'Can delete seadoc revision',80,'delete_seadocrevision'),(317,'Can view seadoc revision',80,'view_seadocrevision');
+INSERT INTO `auth_permission` VALUES (1,'Can add content type',1,'add_contenttype'),(2,'Can change content type',1,'change_contenttype'),(3,'Can delete content type',1,'delete_contenttype'),(4,'Can view content type',1,'view_contenttype'),(5,'Can change config',2,'change_config'),(6,'Can add session',3,'add_session'),(7,'Can change session',3,'change_session'),(8,'Can delete session',3,'delete_session'),(9,'Can view session',3,'view_session'),(10,'Can add client login token',4,'add_clientlogintoken'),(11,'Can change client login token',4,'change_clientlogintoken'),(12,'Can delete client login token',4,'delete_clientlogintoken'),(13,'Can view client login token',4,'view_clientlogintoken'),(14,'Can add commands last check',5,'add_commandslastcheck'),(15,'Can change commands last check',5,'change_commandslastcheck'),(16,'Can delete commands last check',5,'delete_commandslastcheck'),(17,'Can view commands last check',5,'view_commandslastcheck'),(18,'Can add device token',6,'add_devicetoken'),(19,'Can change device token',6,'change_devicetoken'),(20,'Can delete device token',6,'delete_devicetoken'),(21,'Can view device token',6,'view_devicetoken'),(22,'Can add file comment',7,'add_filecomment'),(23,'Can change file comment',7,'change_filecomment'),(24,'Can delete file comment',7,'delete_filecomment'),(25,'Can view file comment',7,'view_filecomment'),(26,'Can add user last login',8,'add_userlastlogin'),(27,'Can change user last login',8,'change_userlastlogin'),(28,'Can delete user last login',8,'delete_userlastlogin'),(29,'Can view user last login',8,'view_userlastlogin'),(30,'Can add user starred files',9,'add_userstarredfiles'),(31,'Can change user starred files',9,'change_userstarredfiles'),(32,'Can delete user starred files',9,'delete_userstarredfiles'),(33,'Can view user starred files',9,'view_userstarredfiles'),(34,'Can add repo secret key',10,'add_reposecretkey'),(35,'Can change repo secret key',10,'change_reposecretkey'),(36,'Can delete repo secret key',10,'delete_reposecretkey'),(37,'Can view repo secret key',10,'view_reposecretkey'),(38,'Can add external department',11,'add_externaldepartment'),(39,'Can change external department',11,'change_externaldepartment'),(40,'Can delete external department',11,'delete_externaldepartment'),(41,'Can view external department',11,'view_externaldepartment'),(42,'Can add social auth user',12,'add_socialauthuser'),(43,'Can change social auth user',12,'change_socialauthuser'),(44,'Can delete social auth user',12,'delete_socialauthuser'),(45,'Can view social auth user',12,'view_socialauthuser'),(46,'Can add user monitored repos',13,'add_usermonitoredrepos'),(47,'Can change user monitored repos',13,'change_usermonitoredrepos'),(48,'Can delete user monitored repos',13,'delete_usermonitoredrepos'),(49,'Can view user monitored repos',13,'view_usermonitoredrepos'),(50,'Can add permission',14,'add_permission'),(51,'Can change permission',14,'change_permission'),(52,'Can delete permission',14,'delete_permission'),(53,'Can view permission',14,'view_permission'),(54,'Can add group',15,'add_group'),(55,'Can change group',15,'change_group'),(56,'Can delete group',15,'delete_group'),(57,'Can view group',15,'view_group'),(58,'Can add user',16,'add_user'),(59,'Can change user',16,'change_user'),(60,'Can delete user',16,'delete_user'),(61,'Can view user',16,'view_user'),(62,'Can add registration profile',17,'add_registrationprofile'),(63,'Can change registration profile',17,'change_registrationprofile'),(64,'Can delete registration profile',17,'delete_registrationprofile'),(65,'Can view registration profile',17,'view_registrationprofile'),(66,'Can add captcha store',18,'add_captchastore'),(67,'Can change captcha store',18,'change_captchastore'),(68,'Can delete captcha store',18,'delete_captchastore'),(69,'Can view captcha store',18,'view_captchastore'),(70,'Can add constance',19,'add_constance'),(71,'Can change constance',19,'change_constance'),(72,'Can delete constance',19,'delete_constance'),(73,'Can view constance',19,'view_constance'),(74,'Can add Terms and Conditions',20,'add_termsandconditions'),(75,'Can change Terms and Conditions',20,'change_termsandconditions'),(76,'Can delete Terms and Conditions',20,'delete_termsandconditions'),(77,'Can view Terms and Conditions',20,'view_termsandconditions'),(78,'Can add User Terms and Conditions',21,'add_usertermsandconditions'),(79,'Can change User Terms and Conditions',21,'change_usertermsandconditions'),(80,'Can delete User Terms and Conditions',21,'delete_usertermsandconditions'),(81,'Can view User Terms and Conditions',21,'view_usertermsandconditions'),(82,'Can add token',22,'add_token'),(83,'Can change token',22,'change_token'),(84,'Can delete token',22,'delete_token'),(85,'Can view token',22,'view_token'),(86,'Can add token v2',23,'add_tokenv2'),(87,'Can change token v2',23,'change_tokenv2'),(88,'Can delete token v2',23,'delete_tokenv2'),(89,'Can view token v2',23,'view_tokenv2'),(90,'Can add avatar',24,'add_avatar'),(91,'Can change avatar',24,'change_avatar'),(92,'Can delete avatar',24,'delete_avatar'),(93,'Can view avatar',24,'view_avatar'),(94,'Can add group avatar',25,'add_groupavatar'),(95,'Can change group avatar',25,'change_groupavatar'),(96,'Can delete group avatar',25,'delete_groupavatar'),(97,'Can view group avatar',25,'view_groupavatar'),(98,'Can add contact',26,'add_contact'),(99,'Can change contact',26,'change_contact'),(100,'Can delete contact',26,'delete_contact'),(101,'Can view contact',26,'view_contact'),(102,'Can add draft',27,'add_draft'),(103,'Can change draft',27,'change_draft'),(104,'Can delete draft',27,'delete_draft'),(105,'Can view draft',27,'view_draft'),(106,'Can add draft reviewer',28,'add_draftreviewer'),(107,'Can change draft reviewer',28,'change_draftreviewer'),(108,'Can delete draft reviewer',28,'delete_draftreviewer'),(109,'Can view draft reviewer',28,'view_draftreviewer'),(110,'Can add institution',29,'add_institution'),(111,'Can change institution',29,'change_institution'),(112,'Can delete institution',29,'delete_institution'),(113,'Can view institution',29,'view_institution'),(114,'Can add institution admin',30,'add_institutionadmin'),(115,'Can change institution admin',30,'change_institutionadmin'),(116,'Can delete institution admin',30,'delete_institutionadmin'),(117,'Can view institution admin',30,'view_institutionadmin'),(118,'Can add institution quota',31,'add_institutionquota'),(119,'Can change institution quota',31,'change_institutionquota'),(120,'Can delete institution quota',31,'delete_institutionquota'),(121,'Can view institution quota',31,'view_institutionquota'),(122,'Can add invitation',32,'add_invitation'),(123,'Can change invitation',32,'change_invitation'),(124,'Can delete invitation',32,'delete_invitation'),(125,'Can view invitation',32,'view_invitation'),(126,'Can add repo share invitation',33,'add_reposhareinvitation'),(127,'Can change repo share invitation',33,'change_reposhareinvitation'),(128,'Can delete repo share invitation',33,'delete_reposhareinvitation'),(129,'Can view repo share invitation',33,'view_reposhareinvitation'),(130,'Can add wiki',34,'add_wiki'),(131,'Can change wiki',34,'change_wiki'),(132,'Can delete wiki',34,'delete_wiki'),(133,'Can view wiki',34,'view_wiki'),(134,'Can add notification',35,'add_notification'),(135,'Can change notification',35,'change_notification'),(136,'Can delete notification',35,'delete_notification'),(137,'Can view notification',35,'view_notification'),(138,'Can add user notification',36,'add_usernotification'),(139,'Can change user notification',36,'change_usernotification'),(140,'Can delete user notification',36,'delete_usernotification'),(141,'Can view user notification',36,'view_usernotification'),(142,'Can add user options',37,'add_useroptions'),(143,'Can change user options',37,'change_useroptions'),(144,'Can delete user options',37,'delete_useroptions'),(145,'Can view user options',37,'view_useroptions'),(146,'Can add only office doc key',38,'add_onlyofficedockey'),(147,'Can change only office doc key',38,'change_onlyofficedockey'),(148,'Can delete only office doc key',38,'delete_onlyofficedockey'),(149,'Can view only office doc key',38,'view_onlyofficedockey'),(150,'Can add detailed profile',39,'add_detailedprofile'),(151,'Can change detailed profile',39,'change_detailedprofile'),(152,'Can delete detailed profile',39,'delete_detailedprofile'),(153,'Can view detailed profile',39,'view_detailedprofile'),(154,'Can add profile',40,'add_profile'),(155,'Can change profile',40,'change_profile'),(156,'Can delete profile',40,'delete_profile'),(157,'Can view profile',40,'view_profile'),(158,'Can add anonymous share',41,'add_anonymousshare'),(159,'Can change anonymous share',41,'change_anonymousshare'),(160,'Can delete anonymous share',41,'delete_anonymousshare'),(161,'Can view anonymous share',41,'view_anonymousshare'),(162,'Can add extra groups share permission',42,'add_extragroupssharepermission'),(163,'Can change extra groups share permission',42,'change_extragroupssharepermission'),(164,'Can delete extra groups share permission',42,'delete_extragroupssharepermission'),(165,'Can view extra groups share permission',42,'view_extragroupssharepermission'),(166,'Can add extra share permission',43,'add_extrasharepermission'),(167,'Can change extra share permission',43,'change_extrasharepermission'),(168,'Can delete extra share permission',43,'delete_extrasharepermission'),(169,'Can view extra share permission',43,'view_extrasharepermission'),(170,'Can add file share',44,'add_fileshare'),(171,'Can change file share',44,'change_fileshare'),(172,'Can delete file share',44,'delete_fileshare'),(173,'Can view file share',44,'view_fileshare'),(174,'Can add org file share',45,'add_orgfileshare'),(175,'Can change org file share',45,'change_orgfileshare'),(176,'Can delete org file share',45,'delete_orgfileshare'),(177,'Can view org file share',45,'view_orgfileshare'),(178,'Can add private file dir share',46,'add_privatefiledirshare'),(179,'Can change private file dir share',46,'change_privatefiledirshare'),(180,'Can delete private file dir share',46,'delete_privatefiledirshare'),(181,'Can view private file dir share',46,'view_privatefiledirshare'),(182,'Can add upload link share',47,'add_uploadlinkshare'),(183,'Can change upload link share',47,'change_uploadlinkshare'),(184,'Can delete upload link share',47,'delete_uploadlinkshare'),(185,'Can view upload link share',47,'view_uploadlinkshare'),(186,'Can add custom share permissions',48,'add_customsharepermissions'),(187,'Can change custom share permissions',48,'change_customsharepermissions'),(188,'Can delete custom share permissions',48,'delete_customsharepermissions'),(189,'Can view custom share permissions',48,'view_customsharepermissions'),(190,'Can add admin log',49,'add_adminlog'),(191,'Can change admin log',49,'change_adminlog'),(192,'Can delete admin log',49,'delete_adminlog'),(193,'Can view admin log',49,'view_adminlog'),(194,'Can add file tag',50,'add_filetag'),(195,'Can change file tag',50,'change_filetag'),(196,'Can delete file tag',50,'delete_filetag'),(197,'Can view file tag',50,'view_filetag'),(198,'Can add file uuid map',51,'add_fileuuidmap'),(199,'Can change file uuid map',51,'change_fileuuidmap'),(200,'Can delete file uuid map',51,'delete_fileuuidmap'),(201,'Can view file uuid map',51,'view_fileuuidmap'),(202,'Can add tags',52,'add_tags'),(203,'Can change tags',52,'change_tags'),(204,'Can delete tags',52,'delete_tags'),(205,'Can view tags',52,'view_tags'),(206,'Can add revision tags',53,'add_revisiontags'),(207,'Can change revision tags',53,'change_revisiontags'),(208,'Can delete revision tags',53,'delete_revisiontags'),(209,'Can view revision tags',53,'view_revisiontags'),(210,'Can add tags',54,'add_tags'),(211,'Can change tags',54,'change_tags'),(212,'Can delete tags',54,'delete_tags'),(213,'Can view tags',54,'view_tags'),(214,'Can add phone device',55,'add_phonedevice'),(215,'Can change phone device',55,'change_phonedevice'),(216,'Can delete phone device',55,'delete_phonedevice'),(217,'Can view phone device',55,'view_phonedevice'),(218,'Can add static device',56,'add_staticdevice'),(219,'Can change static device',56,'change_staticdevice'),(220,'Can delete static device',56,'delete_staticdevice'),(221,'Can view static device',56,'view_staticdevice'),(222,'Can add static token',57,'add_statictoken'),(223,'Can change static token',57,'change_statictoken'),(224,'Can delete static token',57,'delete_statictoken'),(225,'Can view static token',57,'view_statictoken'),(226,'Can add TOTP device',58,'add_totpdevice'),(227,'Can change TOTP device',58,'change_totpdevice'),(228,'Can delete TOTP device',58,'delete_totpdevice'),(229,'Can view TOTP device',58,'view_totpdevice'),(230,'Can add admin role',59,'add_adminrole'),(231,'Can change admin role',59,'change_adminrole'),(232,'Can delete admin role',59,'delete_adminrole'),(233,'Can view admin role',59,'view_adminrole'),(234,'Can add trusted ip',60,'add_trustedip'),(235,'Can change trusted ip',60,'change_trustedip'),(236,'Can delete trusted ip',60,'delete_trustedip'),(237,'Can view trusted ip',60,'view_trustedip'),(238,'Can add repo tags',61,'add_repotags'),(239,'Can change repo tags',61,'change_repotags'),(240,'Can delete repo tags',61,'delete_repotags'),(241,'Can view repo tags',61,'view_repotags'),(242,'Can add file tags',62,'add_filetags'),(243,'Can change file tags',62,'change_filetags'),(244,'Can delete file tags',62,'delete_filetags'),(245,'Can view file tags',62,'view_filetags'),(246,'Can add related files',63,'add_relatedfiles'),(247,'Can change related files',63,'change_relatedfiles'),(248,'Can delete related files',63,'delete_relatedfiles'),(249,'Can view related files',63,'view_relatedfiles'),(250,'Can add file participant',64,'add_fileparticipant'),(251,'Can change file participant',64,'change_fileparticipant'),(252,'Can delete file participant',64,'delete_fileparticipant'),(253,'Can view file participant',64,'view_fileparticipant'),(254,'Can add repo api tokens',65,'add_repoapitokens'),(255,'Can change repo api tokens',65,'change_repoapitokens'),(256,'Can delete repo api tokens',65,'delete_repoapitokens'),(257,'Can view repo api tokens',65,'view_repoapitokens'),(258,'Can add abuse report',66,'add_abusereport'),(259,'Can change abuse report',66,'change_abusereport'),(260,'Can delete abuse report',66,'delete_abusereport'),(261,'Can view abuse report',66,'view_abusereport'),(262,'Can add repo auto delete',67,'add_repoautodelete'),(263,'Can change repo auto delete',67,'change_repoautodelete'),(264,'Can delete repo auto delete',67,'delete_repoautodelete'),(265,'Can view repo auto delete',67,'view_repoautodelete'),(266,'Can add ocm share',68,'add_ocmshare'),(267,'Can change ocm share',68,'change_ocmshare'),(268,'Can delete ocm share',68,'delete_ocmshare'),(269,'Can view ocm share',68,'view_ocmshare'),(270,'Can add ocm share received',69,'add_ocmsharereceived'),(271,'Can change ocm share received',69,'change_ocmsharereceived'),(272,'Can delete ocm share received',69,'delete_ocmsharereceived'),(273,'Can view ocm share received',69,'view_ocmsharereceived'),(274,'Can add received shares',70,'add_receivedshares'),(275,'Can change received shares',70,'change_receivedshares'),(276,'Can delete received shares',70,'delete_receivedshares'),(277,'Can view received shares',70,'view_receivedshares'),(278,'Can add user login log',71,'add_userloginlog'),(279,'Can change user login log',71,'change_userloginlog'),(280,'Can delete user login log',71,'delete_userloginlog'),(281,'Can view user login log',71,'view_userloginlog'),(282,'Can add org member quota',72,'add_orgmemberquota'),(283,'Can change org member quota',72,'change_orgmemberquota'),(284,'Can delete org member quota',72,'delete_orgmemberquota'),(285,'Can view org member quota',72,'view_orgmemberquota'),(286,'Can add org settings',73,'add_orgsettings'),(287,'Can change org settings',73,'change_orgsettings'),(288,'Can delete org settings',73,'delete_orgsettings'),(289,'Can view org settings',73,'view_orgsettings'),(290,'Can add org saml config',74,'add_orgsamlconfig'),(291,'Can change org saml config',74,'change_orgsamlconfig'),(292,'Can delete org saml config',74,'delete_orgsamlconfig'),(293,'Can view org saml config',74,'view_orgsamlconfig'),(294,'Can add org admin settings',75,'add_orgadminsettings'),(295,'Can change org admin settings',75,'change_orgadminsettings'),(296,'Can delete org admin settings',75,'delete_orgadminsettings'),(297,'Can view org admin settings',75,'view_orgadminsettings'),(298,'Can add proxy granting ticket',76,'add_proxygrantingticket'),(299,'Can change proxy granting ticket',76,'change_proxygrantingticket'),(300,'Can delete proxy granting ticket',76,'delete_proxygrantingticket'),(301,'Can view proxy granting ticket',76,'view_proxygrantingticket'),(302,'Can add session ticket',77,'add_sessionticket'),(303,'Can change session ticket',77,'change_sessionticket'),(304,'Can delete session ticket',77,'delete_sessionticket'),(305,'Can view session ticket',77,'view_sessionticket'),(306,'Can add seadoc history name',78,'add_seadochistoryname'),(307,'Can change seadoc history name',78,'change_seadochistoryname'),(308,'Can delete seadoc history name',78,'delete_seadochistoryname'),(309,'Can view seadoc history name',78,'view_seadochistoryname'),(310,'Can add seadoc draft',79,'add_seadocdraft'),(311,'Can change seadoc draft',79,'change_seadocdraft'),(312,'Can delete seadoc draft',79,'delete_seadocdraft'),(313,'Can view seadoc draft',79,'view_seadocdraft');
 /*!40000 ALTER TABLE `auth_permission` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1511,7 +525,7 @@ CREATE TABLE `base_userlastlogin` (
   `last_login` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `base_userlastlogin_username_270de06f` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1520,7 +534,6 @@ CREATE TABLE `base_userlastlogin` (
 
 LOCK TABLES `base_userlastlogin` WRITE;
 /*!40000 ALTER TABLE `base_userlastlogin` DISABLE KEYS */;
-INSERT INTO `base_userlastlogin` VALUES (1,'8373ee7d41a448088c8da8bb9976dc4c@auth.local','2023-07-26 06:51:14.660247');
 /*!40000 ALTER TABLE `base_userlastlogin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1753,7 +766,7 @@ CREATE TABLE `django_content_type` (
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1762,7 +775,7 @@ CREATE TABLE `django_content_type` (
 
 LOCK TABLES `django_content_type` WRITE;
 /*!40000 ALTER TABLE `django_content_type` DISABLE KEYS */;
-INSERT INTO `django_content_type` VALUES (66,'abuse_reports','abusereport'),(49,'admin_log','adminlog'),(22,'api2','token'),(23,'api2','tokenv2'),(15,'auth','group'),(14,'auth','permission'),(16,'auth','user'),(24,'avatar','avatar'),(25,'avatar','groupavatar'),(4,'base','clientlogintoken'),(5,'base','commandslastcheck'),(6,'base','devicetoken'),(11,'base','externaldepartment'),(7,'base','filecomment'),(10,'base','reposecretkey'),(12,'base','socialauthuser'),(8,'base','userlastlogin'),(13,'base','usermonitoredrepos'),(9,'base','userstarredfiles'),(18,'captcha','captchastore'),(2,'constance','config'),(26,'contacts','contact'),(1,'contenttypes','contenttype'),(19,'database','constance'),(76,'django_cas_ng','proxygrantingticket'),(77,'django_cas_ng','sessionticket'),(27,'drafts','draft'),(28,'drafts','draftreviewer'),(64,'file_participants','fileparticipant'),(62,'file_tags','filetags'),(29,'institutions','institution'),(30,'institutions','institutionadmin'),(31,'institutions','institutionquota'),(32,'invitations','invitation'),(33,'invitations','reposhareinvitation'),(35,'notifications','notification'),(36,'notifications','usernotification'),(68,'ocm','ocmshare'),(69,'ocm','ocmsharereceived'),(70,'ocm_via_webdav','receivedshares'),(38,'onlyoffice','onlyofficedockey'),(37,'options','useroptions'),(75,'organizations','orgadminsettings'),(72,'organizations','orgmemberquota'),(74,'organizations','orgsamlconfig'),(73,'organizations','orgsettings'),(39,'profile','detailedprofile'),(40,'profile','profile'),(17,'registration','registrationprofile'),(63,'related_files','relatedfiles'),(65,'repo_api_tokens','repoapitokens'),(67,'repo_auto_delete','repoautodelete'),(61,'repo_tags','repotags'),(53,'revision_tag','revisiontags'),(54,'revision_tag','tags'),(59,'role_permissions','adminrole'),(79,'seadoc','seadocdraft'),(78,'seadoc','seadochistoryname'),(80,'seadoc','seadocrevision'),(3,'sessions','session'),(41,'share','anonymousshare'),(48,'share','customsharepermissions'),(42,'share','extragroupssharepermission'),(43,'share','extrasharepermission'),(44,'share','fileshare'),(45,'share','orgfileshare'),(46,'share','privatefiledirshare'),(47,'share','uploadlinkshare'),(71,'sysadmin_extra','userloginlog'),(50,'tags','filetag'),(51,'tags','fileuuidmap'),(52,'tags','tags'),(20,'termsandconditions','termsandconditions'),(21,'termsandconditions','usertermsandconditions'),(60,'trusted_ip','trustedip'),(55,'two_factor','phonedevice'),(56,'two_factor','staticdevice'),(57,'two_factor','statictoken'),(58,'two_factor','totpdevice'),(34,'wiki','wiki');
+INSERT INTO `django_content_type` VALUES (66,'abuse_reports','abusereport'),(49,'admin_log','adminlog'),(22,'api2','token'),(23,'api2','tokenv2'),(15,'auth','group'),(14,'auth','permission'),(16,'auth','user'),(24,'avatar','avatar'),(25,'avatar','groupavatar'),(4,'base','clientlogintoken'),(5,'base','commandslastcheck'),(6,'base','devicetoken'),(11,'base','externaldepartment'),(7,'base','filecomment'),(10,'base','reposecretkey'),(12,'base','socialauthuser'),(8,'base','userlastlogin'),(13,'base','usermonitoredrepos'),(9,'base','userstarredfiles'),(18,'captcha','captchastore'),(2,'constance','config'),(26,'contacts','contact'),(1,'contenttypes','contenttype'),(19,'database','constance'),(76,'django_cas_ng','proxygrantingticket'),(77,'django_cas_ng','sessionticket'),(27,'drafts','draft'),(28,'drafts','draftreviewer'),(64,'file_participants','fileparticipant'),(62,'file_tags','filetags'),(29,'institutions','institution'),(30,'institutions','institutionadmin'),(31,'institutions','institutionquota'),(32,'invitations','invitation'),(33,'invitations','reposhareinvitation'),(35,'notifications','notification'),(36,'notifications','usernotification'),(68,'ocm','ocmshare'),(69,'ocm','ocmsharereceived'),(70,'ocm_via_webdav','receivedshares'),(38,'onlyoffice','onlyofficedockey'),(37,'options','useroptions'),(75,'organizations','orgadminsettings'),(72,'organizations','orgmemberquota'),(74,'organizations','orgsamlconfig'),(73,'organizations','orgsettings'),(39,'profile','detailedprofile'),(40,'profile','profile'),(17,'registration','registrationprofile'),(63,'related_files','relatedfiles'),(65,'repo_api_tokens','repoapitokens'),(67,'repo_auto_delete','repoautodelete'),(61,'repo_tags','repotags'),(53,'revision_tag','revisiontags'),(54,'revision_tag','tags'),(59,'role_permissions','adminrole'),(79,'seadoc','seadocdraft'),(78,'seadoc','seadochistoryname'),(3,'sessions','session'),(41,'share','anonymousshare'),(48,'share','customsharepermissions'),(42,'share','extragroupssharepermission'),(43,'share','extrasharepermission'),(44,'share','fileshare'),(45,'share','orgfileshare'),(46,'share','privatefiledirshare'),(47,'share','uploadlinkshare'),(71,'sysadmin_extra','userloginlog'),(50,'tags','filetag'),(51,'tags','fileuuidmap'),(52,'tags','tags'),(20,'termsandconditions','termsandconditions'),(21,'termsandconditions','usertermsandconditions'),(60,'trusted_ip','trustedip'),(55,'two_factor','phonedevice'),(56,'two_factor','staticdevice'),(57,'two_factor','statictoken'),(58,'two_factor','totpdevice'),(34,'wiki','wiki');
 /*!40000 ALTER TABLE `django_content_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1788,7 +801,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'abuse_reports','0001_initial','2023-07-26 06:50:23.745983'),(2,'admin_log','0001_initial','2023-07-26 06:50:23.755688'),(3,'api2','0001_initial','2023-07-26 06:50:23.768130'),(4,'contenttypes','0001_initial','2023-07-26 06:50:23.775054'),(5,'contenttypes','0002_remove_content_type_name','2023-07-26 06:50:23.785499'),(6,'auth','0001_initial','2023-07-26 06:50:23.851446'),(7,'auth','0002_alter_permission_name_max_length','2023-07-26 06:50:23.859959'),(8,'auth','0003_alter_user_email_max_length','2023-07-26 06:50:23.868417'),(9,'auth','0004_alter_user_username_opts','2023-07-26 06:50:23.870668'),(10,'auth','0005_alter_user_last_login_null','2023-07-26 06:50:23.877947'),(11,'auth','0006_require_contenttypes_0002','2023-07-26 06:50:23.878607'),(12,'auth','0007_alter_validators_add_error_messages','2023-07-26 06:50:23.880764'),(13,'auth','0008_alter_user_username_max_length','2023-07-26 06:50:23.889334'),(14,'auth','0009_alter_user_last_name_max_length','2023-07-26 06:50:23.897708'),(15,'auth','0010_alter_group_name_max_length','2023-07-26 06:50:23.905732'),(16,'auth','0011_update_proxy_permissions','2023-07-26 06:50:23.910173'),(17,'auth','0012_alter_user_first_name_max_length','2023-07-26 06:50:23.918421'),(18,'avatar','0001_initial','2023-07-26 06:50:23.924842'),(19,'tags','0001_initial','2023-07-26 06:50:23.952245'),(20,'group','0001_initial','2023-07-26 06:50:23.976544'),(21,'base','0001_initial','2023-07-26 06:50:24.050687'),(22,'base','0002_reposecretkey','2023-07-26 06:50:24.056656'),(23,'base','0003_auto_20181016_1242','2023-07-26 06:50:24.075450'),(24,'base','0004_externaldepartment_socialauthuser_usermonitoredrepos_and_more','2023-07-26 06:50:24.144216'),(25,'captcha','0001_initial','2023-07-26 06:50:24.150606'),(26,'captcha','0002_alter_captchastore_id','2023-07-26 06:50:24.155902'),(27,'contacts','0001_initial','2023-07-26 06:50:24.162222'),(28,'contacts','0002_alter_contact_contact_name_alter_contact_note','2023-07-26 06:50:24.165772'),(29,'database','0001_initial','2023-07-26 06:50:24.169966'),(30,'database','0002_auto_20190129_2304','2023-07-26 06:50:24.175546'),(31,'django_cas_ng','0001_initial','2023-07-26 06:50:24.195216'),(32,'django_cas_ng','0002_auto_20180410_0948','2023-07-26 06:50:24.216531'),(33,'drafts','0001_initial','2023-07-26 06:50:24.296588'),(34,'drafts','0002_draftreview_author','2023-07-26 06:50:24.318382'),(35,'drafts','0003_auto_20190301_0648','2023-07-26 06:50:24.432975'),(36,'drafts','0004_auto_20190610_0628','2023-07-26 06:50:24.452419'),(37,'file_participants','0001_initial','2023-07-26 06:50:24.468928'),(38,'repo_tags','0001_initial','2023-07-26 06:50:24.485603'),(39,'file_tags','0001_initial','2023-07-26 06:50:24.510972'),(40,'file_tags','0002_remove_filetags_parent_folder_uuid','2023-07-26 06:50:24.526204'),(41,'group','0002_remove_messageattachment_group_message_and_more','2023-07-26 06:50:24.552146'),(42,'institutions','0001_initial','2023-07-26 06:50:24.566543'),(43,'institutions','0002_institutionquota','2023-07-26 06:50:24.577428'),(44,'institutions','0003_auto_20180426_0710','2023-07-26 06:50:24.584568'),(45,'invitations','0001_initial','2023-07-26 06:50:24.592492'),(46,'invitations','0002_invitation_invite_type','2023-07-26 06:50:24.604588'),(47,'invitations','0003_auto_20160510_1703','2023-07-26 06:50:24.613050'),(48,'invitations','0004_auto_20160629_1610','2023-07-26 06:50:24.619795'),(49,'invitations','0005_auto_20160629_1614','2023-07-26 06:50:24.623731'),(50,'invitations','0006_reposhareinvitation','2023-07-26 06:50:24.637688'),(51,'notifications','0001_initial','2023-07-26 06:50:24.650232'),(52,'notifications','0002_auto_20180426_0710','2023-07-26 06:50:24.655118'),(53,'notifications','0003_auto_20181115_0825','2023-07-26 06:50:24.660290'),(54,'notifications','0004_alter_usernotification_seen','2023-07-26 06:50:24.663247'),(55,'ocm','0001_initial','2023-07-26 06:50:24.699801'),(56,'ocm_via_webdav','0001_initial','2023-07-26 06:50:24.742497'),(57,'ocm_via_webdav','0002_auto_20210926_1503','2023-07-26 06:50:24.753286'),(58,'ocm_via_webdav','0003_auto_20210926_1505','2023-07-26 06:50:24.776980'),(59,'ocm_via_webdav','0004_receivedshares_is_dir','2023-07-26 06:50:24.785183'),(60,'onlyoffice','0001_initial','2023-07-26 06:50:24.791753'),(61,'options','0001_initial','2023-07-26 06:50:24.797873'),(62,'options','0002_auto_20181107_0811','2023-07-26 06:50:24.801247'),(63,'organizations','0001_initial','2023-07-26 06:50:24.806329'),(64,'organizations','0002_orgsettings','2023-07-26 06:50:24.811587'),(65,'organizations','0003_auto_20190116_0323','2023-07-26 06:50:24.818492'),(66,'organizations','0004_orgsamlconfig_orgadminsettings','2023-07-26 06:50:24.830177'),(67,'profile','0001_initial','2023-07-26 06:50:24.848458'),(68,'profile','0002_auto_20190122_0225','2023-07-26 06:50:24.860223'),(69,'profile','0003_alter_profile_institution','2023-07-26 06:50:24.863258'),(70,'registration','0001_initial','2023-07-26 06:50:24.866535'),(71,'related_files','0001_initial','2023-07-26 06:50:24.882678'),(72,'repo_api_tokens','0001_initial','2023-07-26 06:50:24.893046'),(73,'repo_auto_delete','0001_initial','2023-07-26 06:50:24.897204'),(74,'revision_tag','0001_initial','2023-07-26 06:50:24.919885'),(75,'revision_tag','0002_alter_revisiontags_path','2023-07-26 06:50:24.921934'),(76,'role_permissions','0001_initial','2023-07-26 06:50:24.925394'),(77,'sessions','0001_initial','2023-07-26 06:50:24.930857'),(78,'share','0001_initial','2023-07-26 06:50:24.996284'),(79,'share','0002_customsharepermissions_alter_fileshare_permission_and_more','2023-07-26 06:50:25.011599'),(80,'sysadmin_extra','0001_initial','2023-07-26 06:50:25.019804'),(81,'termsandconditions','0001_initial','2023-07-26 06:50:25.040231'),(82,'termsandconditions','0002_alter_termsandconditions_date_active_and_more','2023-07-26 06:50:25.046799'),(83,'trusted_ip','0001_initial','2023-07-26 06:50:25.052687'),(84,'two_factor','0001_initial','2023-07-26 06:50:25.070826'),(85,'wiki','0001_initial','2023-07-26 06:50:25.076836'),(86,'wiki','0002_auto_20180326_0548','2023-07-26 06:50:25.087790'),(87,'wiki','0003_auto_20180428_0619','2023-07-26 06:50:25.091846'),(88,'wiki','0004_delete_groupwiki_delete_personalwiki','2023-07-26 06:50:25.095334');
+INSERT INTO `django_migrations` VALUES (1,'abuse_reports','0001_initial','2023-07-06 06:09:47.373173'),(2,'admin_log','0001_initial','2023-07-06 06:09:47.382858'),(3,'api2','0001_initial','2023-07-06 06:09:47.394236'),(4,'contenttypes','0001_initial','2023-07-06 06:09:47.399825'),(5,'contenttypes','0002_remove_content_type_name','2023-07-06 06:09:47.409612'),(6,'auth','0001_initial','2023-07-06 06:09:47.471919'),(7,'auth','0002_alter_permission_name_max_length','2023-07-06 06:09:47.481243'),(8,'auth','0003_alter_user_email_max_length','2023-07-06 06:09:47.489348'),(9,'auth','0004_alter_user_username_opts','2023-07-06 06:09:47.491372'),(10,'auth','0005_alter_user_last_login_null','2023-07-06 06:09:47.497969'),(11,'auth','0006_require_contenttypes_0002','2023-07-06 06:09:47.498431'),(12,'auth','0007_alter_validators_add_error_messages','2023-07-06 06:09:47.500367'),(13,'auth','0008_alter_user_username_max_length','2023-07-06 06:09:47.508253'),(14,'auth','0009_alter_user_last_name_max_length','2023-07-06 06:09:47.516604'),(15,'auth','0010_alter_group_name_max_length','2023-07-06 06:09:47.524310'),(16,'auth','0011_update_proxy_permissions','2023-07-06 06:09:47.527358'),(17,'auth','0012_alter_user_first_name_max_length','2023-07-06 06:09:47.535921'),(18,'avatar','0001_initial','2023-07-06 06:09:47.540393'),(19,'tags','0001_initial','2023-07-06 06:09:47.565181'),(20,'group','0001_initial','2023-07-06 06:09:47.588504'),(21,'base','0001_initial','2023-07-06 06:09:47.650407'),(22,'base','0002_reposecretkey','2023-07-06 06:09:47.655230'),(23,'base','0003_auto_20181016_1242','2023-07-06 06:09:47.671570'),(24,'base','0004_externaldepartment_socialauthuser_usermonitoredrepos_and_more','2023-07-06 06:09:47.729251'),(25,'captcha','0001_initial','2023-07-06 06:09:47.734010'),(26,'captcha','0002_alter_captchastore_id','2023-07-06 06:09:47.736422'),(27,'contacts','0001_initial','2023-07-06 06:09:47.742294'),(28,'contacts','0002_alter_contact_contact_name_alter_contact_note','2023-07-06 06:09:47.745291'),(29,'database','0001_initial','2023-07-06 06:09:47.749053'),(30,'database','0002_auto_20190129_2304','2023-07-06 06:09:47.754727'),(31,'django_cas_ng','0001_initial','2023-07-06 06:09:47.773665'),(32,'django_cas_ng','0002_auto_20180410_0948','2023-07-06 06:09:47.793413'),(33,'drafts','0001_initial','2023-07-06 06:09:47.882824'),(34,'drafts','0002_draftreview_author','2023-07-06 06:09:47.903216'),(35,'drafts','0003_auto_20190301_0648','2023-07-06 06:09:48.005810'),(36,'drafts','0004_auto_20190610_0628','2023-07-06 06:09:48.025303'),(37,'file_participants','0001_initial','2023-07-06 06:09:48.041994'),(38,'repo_tags','0001_initial','2023-07-06 06:09:48.052127'),(39,'file_tags','0001_initial','2023-07-06 06:09:48.074422'),(40,'file_tags','0002_remove_filetags_parent_folder_uuid','2023-07-06 06:09:48.089593'),(41,'group','0002_remove_messageattachment_group_message_and_more','2023-07-06 06:09:48.116818'),(42,'institutions','0001_initial','2023-07-06 06:09:48.130529'),(43,'institutions','0002_institutionquota','2023-07-06 06:09:48.140519'),(44,'institutions','0003_auto_20180426_0710','2023-07-06 06:09:48.148490'),(45,'invitations','0001_initial','2023-07-06 06:09:48.155197'),(46,'invitations','0002_invitation_invite_type','2023-07-06 06:09:48.161055'),(47,'invitations','0003_auto_20160510_1703','2023-07-06 06:09:48.170239'),(48,'invitations','0004_auto_20160629_1610','2023-07-06 06:09:48.177614'),(49,'invitations','0005_auto_20160629_1614','2023-07-06 06:09:48.180540'),(50,'invitations','0006_reposhareinvitation','2023-07-06 06:09:48.191868'),(51,'notifications','0001_initial','2023-07-06 06:09:48.204070'),(52,'notifications','0002_auto_20180426_0710','2023-07-06 06:09:48.208275'),(53,'notifications','0003_auto_20181115_0825','2023-07-06 06:09:48.211954'),(54,'notifications','0004_alter_usernotification_seen','2023-07-06 06:09:48.213613'),(55,'ocm','0001_initial','2023-07-06 06:09:48.245487'),(56,'ocm_via_webdav','0001_initial','2023-07-06 06:09:48.284401'),(57,'ocm_via_webdav','0002_auto_20210926_1503','2023-07-06 06:09:48.299969'),(58,'ocm_via_webdav','0003_auto_20210926_1505','2023-07-06 06:09:48.319330'),(59,'ocm_via_webdav','0004_receivedshares_is_dir','2023-07-06 06:09:48.326894'),(60,'onlyoffice','0001_initial','2023-07-06 06:09:48.334119'),(61,'options','0001_initial','2023-07-06 06:09:48.339670'),(62,'options','0002_auto_20181107_0811','2023-07-06 06:09:48.342763'),(63,'organizations','0001_initial','2023-07-06 06:09:48.347173'),(64,'organizations','0002_orgsettings','2023-07-06 06:09:48.351897'),(65,'organizations','0003_auto_20190116_0323','2023-07-06 06:09:48.358713'),(66,'organizations','0004_orgsamlconfig_orgadminsettings','2023-07-06 06:09:48.369084'),(67,'profile','0001_initial','2023-07-06 06:09:48.385716'),(68,'profile','0002_auto_20190122_0225','2023-07-06 06:09:48.393920'),(69,'profile','0003_alter_profile_institution','2023-07-06 06:09:48.395194'),(70,'registration','0001_initial','2023-07-06 06:09:48.398328'),(71,'related_files','0001_initial','2023-07-06 06:09:48.413111'),(72,'repo_api_tokens','0001_initial','2023-07-06 06:09:48.421181'),(73,'repo_auto_delete','0001_initial','2023-07-06 06:09:48.424172'),(74,'revision_tag','0001_initial','2023-07-06 06:09:48.442402'),(75,'revision_tag','0002_alter_revisiontags_path','2023-07-06 06:09:48.446619'),(76,'role_permissions','0001_initial','2023-07-06 06:09:48.450658'),(77,'sessions','0001_initial','2023-07-06 06:09:48.456590'),(78,'share','0001_initial','2023-07-06 06:09:48.516605'),(79,'share','0002_customsharepermissions_alter_fileshare_permission_and_more','2023-07-06 06:09:48.528717'),(80,'sysadmin_extra','0001_initial','2023-07-06 06:09:48.535820'),(81,'termsandconditions','0001_initial','2023-07-06 06:09:48.556963'),(82,'termsandconditions','0002_alter_termsandconditions_date_active_and_more','2023-07-06 06:09:48.563397'),(83,'trusted_ip','0001_initial','2023-07-06 06:09:48.568623'),(84,'two_factor','0001_initial','2023-07-06 06:09:48.586405'),(85,'wiki','0001_initial','2023-07-06 06:09:48.591948'),(86,'wiki','0002_auto_20180326_0548','2023-07-06 06:09:48.602540'),(87,'wiki','0003_auto_20180428_0619','2023-07-06 06:09:48.606512'),(88,'wiki','0004_delete_groupwiki_delete_personalwiki','2023-07-06 06:09:48.609760');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1814,7 +827,6 @@ CREATE TABLE `django_session` (
 
 LOCK TABLES `django_session` WRITE;
 /*!40000 ALTER TABLE `django_session` DISABLE KEYS */;
-INSERT INTO `django_session` VALUES ('jv720ov255fl3qne9bp1stlj7pw8c9ju','.eJxVjMtqwzAQAP9F5yJkaa1HTk1_RKxWGxziR_BaNKH036tQKPQ6zMyX2nnhpfCeF1anC87CbypjO6bcpNMVX1xFFxxzqDAgQDQxUqwYS0kp-EpA769CzxvhrP71BenGa822T4RxakUXFNZItLX1EH3u6sev1Ms7inxue83CItdtzX9gQpnyjZ_9M0IiNIYogRtcNbVYC-PFjBAqJ0f9I61umR_36875EHUafDLODxBAe2_taL9_AOfmUvo:1qOYMc:rTp1fBiXYfqLx7jCYsxdY-QVVf-xbKENN63xtQC8Kyk','2023-07-27 06:51:14.662963');
 /*!40000 ALTER TABLE `django_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2288,7 +1300,7 @@ CREATE TABLE `options_useroptions` (
   PRIMARY KEY (`id`),
   KEY `options_useroptions_email_77d5726a` (`email`),
   KEY `options_useroptions_option_key_7bf7ae4b` (`option_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2297,7 +1309,6 @@ CREATE TABLE `options_useroptions` (
 
 LOCK TABLES `options_useroptions` WRITE;
 /*!40000 ALTER TABLE `options_useroptions` DISABLE KEYS */;
-INSERT INTO `options_useroptions` VALUES (1,'8373ee7d41a448088c8da8bb9976dc4c@auth.local','user_guide','0'),(2,'8373ee7d41a448088c8da8bb9976dc4c@auth.local','default_repo','22d69746-c8e9-40be-9598-90215e6adbdb');
 /*!40000 ALTER TABLE `options_useroptions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2454,7 +1465,7 @@ CREATE TABLE `profile_profile` (
   UNIQUE KEY `profile_profile_contact_email_0975e4bf_uniq` (`contact_email`),
   KEY `profile_profile_institution_c0286bd1` (`institution`),
   KEY `profile_profile_list_in_address_book_b1009a78` (`list_in_address_book`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2463,7 +1474,6 @@ CREATE TABLE `profile_profile` (
 
 LOCK TABLES `profile_profile` WRITE;
 /*!40000 ALTER TABLE `profile_profile` DISABLE KEYS */;
-INSERT INTO `profile_profile` VALUES (1,'8373ee7d41a448088c8da8bb9976dc4c@auth.local','','',NULL,NULL,'admin@bytetrade.io','',0);
 /*!40000 ALTER TABLE `profile_profile` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2969,7 +1979,7 @@ CREATE TABLE `sysadmin_extra_userloginlog` (
   PRIMARY KEY (`id`),
   KEY `sysadmin_extra_userloginlog_username_5748b9e3` (`username`),
   KEY `sysadmin_extra_userloginlog_login_date_c171d790` (`login_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2978,7 +1988,6 @@ CREATE TABLE `sysadmin_extra_userloginlog` (
 
 LOCK TABLES `sysadmin_extra_userloginlog` WRITE;
 /*!40000 ALTER TABLE `sysadmin_extra_userloginlog` DISABLE KEYS */;
-INSERT INTO `sysadmin_extra_userloginlog` VALUES (1,'admin@bytetrade.io','2023-07-26 06:51:09.183206','127.0.0.1',0),(2,'8373ee7d41a448088c8da8bb9976dc4c@auth.local','2023-07-26 06:51:14.661009','127.0.0.1',1);
 /*!40000 ALTER TABLE `sysadmin_extra_userloginlog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3306,4 +2315,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-26 14:54:44
+-- Dump completed on 2023-07-06 14:21:47
