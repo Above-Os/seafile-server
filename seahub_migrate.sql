@@ -500,7 +500,7 @@ CREATE TABLE `Repo` (
 
 LOCK TABLES `Repo` WRITE;
 /*!40000 ALTER TABLE `Repo` DISABLE KEYS */;
-INSERT INTO `Repo` VALUES (2,'22d69746-c8e9-40be-9598-90215e6adbdb'),(1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c');
+INSERT INTO `Repo` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c'); /*,(2,'22d69746-c8e9-40be-9598-90215e6adbdb');*/
 /*!40000 ALTER TABLE `Repo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -580,7 +580,7 @@ CREATE TABLE `RepoHead` (
 
 LOCK TABLES `RepoHead` WRITE;
 /*!40000 ALTER TABLE `RepoHead` DISABLE KEYS */;
-INSERT INTO `RepoHead` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','master'),(2,'22d69746-c8e9-40be-9598-90215e6adbdb','master');
+INSERT INTO `RepoHead` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','master'); /*,(2,'22d69746-c8e9-40be-9598-90215e6adbdb','master');*/
 /*!40000 ALTER TABLE `RepoHead` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -636,7 +636,7 @@ CREATE TABLE `RepoInfo` (
 
 LOCK TABLES `RepoInfo` WRITE;
 /*!40000 ALTER TABLE `RepoInfo` DISABLE KEYS */;
-INSERT INTO `RepoInfo` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','My Library Template',1690354184,1,0,'system',0),(2,'22d69746-c8e9-40be-9598-90215e6adbdb','My Library',1690354274,1,0,'8373ee7d41a448088c8da8bb9976dc4c@auth.local',0);
+INSERT INTO `RepoInfo` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','My Library Template',1690354184,1,0,'system',0); /*,(2,'22d69746-c8e9-40be-9598-90215e6adbdb','My Library',1690354274,1,0,'8373ee7d41a448088c8da8bb9976dc4c@auth.local',0);*/
 /*!40000 ALTER TABLE `RepoInfo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -663,7 +663,7 @@ CREATE TABLE `RepoOwner` (
 
 LOCK TABLES `RepoOwner` WRITE;
 /*!40000 ALTER TABLE `RepoOwner` DISABLE KEYS */;
-INSERT INTO `RepoOwner` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','System'),(2,'22d69746-c8e9-40be-9598-90215e6adbdb','8373ee7d41a448088c8da8bb9976dc4c@auth.local');
+INSERT INTO `RepoOwner` VALUES (1,'41dc2f97-1ab0-4e12-83f2-9fcb4cabb77c','System'); /*,(2,'22d69746-c8e9-40be-9598-90215e6adbdb','8373ee7d41a448088c8da8bb9976dc4c@auth.local');*/
 /*!40000 ALTER TABLE `RepoOwner` ENABLE KEYS */;
 UNLOCK TABLES;
 
