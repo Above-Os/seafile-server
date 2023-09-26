@@ -362,7 +362,8 @@ DROP TABLE IF EXISTS `Branch`;
 CREATE TABLE `Branch` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `name` varchar(10) DEFAULT NULL,
-  `repo_id` char(41) DEFAULT NULL,
+--   `repo_id` char(41) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `commit_id` char(41) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `repo_id` (`repo_id`,`name`)
@@ -412,7 +413,8 @@ DROP TABLE IF EXISTS `InnerPubRepo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `InnerPubRepo` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `permission` char(15) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `repo_id` (`repo_id`)
@@ -488,7 +490,8 @@ DROP TABLE IF EXISTS `Repo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Repo` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `repo_id` (`repo_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
@@ -538,7 +541,8 @@ DROP TABLE IF EXISTS `RepoGroup`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepoGroup` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `group_id` int DEFAULT NULL,
   `user_name` varchar(255) DEFAULT NULL,
   `permission` char(15) DEFAULT NULL,
@@ -567,7 +571,8 @@ DROP TABLE IF EXISTS `RepoHead`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepoHead` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `branch_name` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `repo_id` (`repo_id`)
@@ -593,7 +598,8 @@ DROP TABLE IF EXISTS `RepoHistoryLimit`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepoHistoryLimit` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `days` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `repo_id` (`repo_id`)
@@ -649,7 +655,8 @@ DROP TABLE IF EXISTS `RepoOwner`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepoOwner` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `owner_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `repo_id` (`repo_id`),
@@ -676,7 +683,8 @@ DROP TABLE IF EXISTS `RepoSize`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepoSize` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `size` bigint unsigned DEFAULT NULL,
   `head_id` char(41) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -764,7 +772,8 @@ DROP TABLE IF EXISTS `RepoUserToken`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepoUserToken` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `token` char(41) DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -792,7 +801,8 @@ DROP TABLE IF EXISTS `RepoValidSince`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `RepoValidSince` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `timestamp` bigint DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `repo_id` (`repo_id`)
@@ -843,7 +853,8 @@ DROP TABLE IF EXISTS `SharedRepo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `SharedRepo` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `from_email` varchar(255) DEFAULT NULL,
   `to_email` varchar(255) DEFAULT NULL,
   `permission` char(15) DEFAULT NULL,
@@ -975,7 +986,8 @@ DROP TABLE IF EXISTS `WebAP`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `WebAP` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(37) DEFAULT NULL,
+--   `repo_id` char(37) DEFAULT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `access_property` char(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `repo_id` (`repo_id`)
@@ -1000,7 +1012,8 @@ DROP TABLE IF EXISTS `WebUploadTempFiles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `WebUploadTempFiles` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `repo_id` char(40) NOT NULL,
+--   `repo_id` char(40) NOT NULL,
+  `repo_id` char(36) DEFAULT NULL,
   `file_path` text NOT NULL,
   `tmp_file_path` text NOT NULL,
   PRIMARY KEY (`id`),
