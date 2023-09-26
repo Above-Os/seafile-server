@@ -1,19 +1,22 @@
 CREATE TABLE IF NOT EXISTS Branch (
  id BIGSERIAL PRIMARY KEY,
  name VARCHAR(10),
- repo_id CHAR(41),
+--  repo_id CHAR(41),
+ repo_id CHAR(36),
  commit_id CHAR(41));
 CREATE UNIQUE INDEX IF NOT EXISTS branch_repoidname_idx ON Branch (repo_id, name);
 
 CREATE TABLE IF NOT EXISTS FileLockTimestamp (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(40),
+--  repo_id CHAR(40),
+ repo_id CHAR(36),
  update_time BIGINT NOT NULL);
 CREATE UNIQUE INDEX IF NOT EXISTS filelocktimestamp_repoid_idx ON FileLockTimestamp (repo_id);
 
 CREATE TABLE IF NOT EXISTS FileLocks (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(40) NOT NULL,
+--  repo_id CHAR(40) NOT NULL,
+ repo_id CHAR(36) NOT NULL,
  path TEXT NOT NULL,
  user_name VARCHAR(255) NOT NULL,
  lock_time BIGINT,
@@ -55,7 +58,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS garbagerepos_repoid_idx ON GarbageRepos (repo_
 
 CREATE TABLE IF NOT EXISTS InnerPubRepo (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  permission CHAR(15));
 CREATE UNIQUE INDEX IF NOT EXISTS innerpubrepo_repoid_idx ON InnerPubRepo (repo_id);
 
@@ -69,7 +73,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS lastgcid_repoid_clientid_idx ON LastGCID (repo
 CREATE TABLE IF NOT EXISTS OrgGroupRepo (
  id BIGSERIAL PRIMARY KEY,
  org_id INTEGER,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  group_id INTEGER,
  "owner" VARCHAR(255),
  permission CHAR(15));
@@ -80,7 +85,8 @@ CREATE INDEX IF NOT EXISTS orggrouprepo_owner_idx ON OrgGroupRepo (owner);
 CREATE TABLE IF NOT EXISTS OrgInnerPubRepo (
  id BIGSERIAL PRIMARY KEY,
  org_id INTEGER,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  permission CHAR(15));
 CREATE UNIQUE INDEX IF NOT EXISTS orginnerpubrepo_orgid_repoid_idx ON OrgInnerPubRepo (org_id, repo_id);
 
@@ -93,7 +99,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS orgquota_orgid_idx ON OrgQuota (org_id);
 CREATE TABLE IF NOT EXISTS OrgRepo (
  id BIGSERIAL PRIMARY KEY,
  org_id INTEGER,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  "user" VARCHAR(255));
 CREATE UNIQUE INDEX IF NOT EXISTS orgrepo_orgid_repoid_idx ON OrgRepo (org_id, repo_id);
 CREATE UNIQUE INDEX IF NOT EXISTS orgrepo_repoid_idx ON OrgRepo (repo_id);
@@ -103,7 +110,8 @@ CREATE INDEX IF NOT EXISTS orgrepo_user_idx ON OrgRepo ("user");
 CREATE TABLE IF NOT EXISTS OrgSharedRepo (
  id SERIAL PRIMARY KEY,
  org_id INT,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  from_email VARCHAR(255),
  to_email VARCHAR(255),
  permission CHAR(15));
@@ -121,7 +129,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS orguserquota_orgid_user_idx ON OrgUserQuota (o
 
 CREATE TABLE IF NOT EXISTS Repo (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37));
+--  repo_id CHAR(37));
+ repo_id CHAR(36));
 CREATE UNIQUE INDEX IF NOT EXISTS repo_repoid_idx ON Repo (repo_id);
 
 CREATE TABLE IF NOT EXISTS RepoFileCount (
@@ -132,7 +141,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS repofilecount_repoid_idx ON RepoFileCount (rep
 
 CREATE TABLE IF NOT EXISTS RepoGroup (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  group_id INTEGER,
  user_name VARCHAR(255),
  permission CHAR(15));
@@ -145,13 +155,15 @@ CREATE INDEX IF NOT EXISTS repogroup_username_idx ON RepoGroup (user_name);
 
 CREATE TABLE IF NOT EXISTS RepoHead (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  branch_name VARCHAR(10));
 CREATE UNIQUE INDEX IF NOT EXISTS repohead_repoid_idx ON RepoHead (repo_id);
 
 CREATE TABLE IF NOT EXISTS RepoHistoryLimit (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  days INTEGER);
 CREATE UNIQUE INDEX IF NOT EXISTS repohistorylimit_repoid_idx ON RepoHistoryLimit (repo_id);
 
@@ -168,7 +180,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS repoinfo_repoid_idx ON RepoInfo (repo_id);
 
 CREATE TABLE IF NOT EXISTS RepoOwner (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  owner_id VARCHAR(255));
 CREATE UNIQUE INDEX IF NOT EXISTS repoowner_repoid_idx ON RepoOwner (repo_id);
 -- existing index, reuse old name
@@ -176,14 +189,16 @@ CREATE INDEX IF NOT EXISTS repoowner_owner_idx ON RepoOwner (owner_id);
 
 CREATE TABLE IF NOT EXISTS RepoSize (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  size BIGINT,
  head_id CHAR(41));
 CREATE UNIQUE INDEX IF NOT EXISTS reposize_repoid_idx ON RepoSize (repo_id);
 
 CREATE TABLE IF NOT EXISTS RepoStorageId (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(40) NOT NULL,
+--  repo_id CHAR(40) NOT NULL,
+ repo_id CHAR(36) NOT NULL,
  storage_id VARCHAR(255) NOT NULL);
 CREATE UNIQUE INDEX IF NOT EXISTS repostorageid_repoid_idx ON RepoStorageId (repo_id);
 
@@ -223,7 +238,8 @@ CREATE INDEX IF NOT EXISTS repotrash_org_id ON RepoTrash (org_id);
 
 CREATE TABLE IF NOT EXISTS RepoUserToken (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  email VARCHAR(255),
  token CHAR(41));
 -- existing index, reuse old name
@@ -234,7 +250,8 @@ CREATE INDEX IF NOT EXISTS repousertoken_email_idx ON RepoUserToken (email);
 
 CREATE TABLE IF NOT EXISTS RepoValidSince (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  timestamp BIGINT);
 CREATE UNIQUE INDEX IF NOT EXISTS repovalidsince_repoid_idx ON RepoValidSince (repo_id);
 
@@ -253,7 +270,8 @@ CREATE TABLE IF NOT EXISTS SeafileConf (
 
 CREATE TABLE IF NOT EXISTS SharedRepo (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  from_email VARCHAR(255),
  to_email VARCHAR(255),
  permission CHAR(15));
@@ -293,12 +311,14 @@ CREATE INDEX IF NOT EXISTS virtualrepo_origin_repo_idx ON VirtualRepo (origin_re
 
 CREATE TABLE IF NOT EXISTS WebAP (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(37),
+--  repo_id CHAR(37),
+ repo_id CHAR(36),
  access_property CHAR(10));
 CREATE UNIQUE INDEX IF NOT EXISTS webap_repoid_idx ON WebAP (repo_id);
 
 CREATE TABLE IF NOT EXISTS WebUploadTempFiles (
  id BIGSERIAL PRIMARY KEY,
- repo_id CHAR(40) NOT NULL,
+--  repo_id CHAR(40) NOT NULL,
+ repo_id CHAR(36) NOT NULL,
  file_path TEXT NOT NULL,
  tmp_file_path TEXT NOT NULL);
