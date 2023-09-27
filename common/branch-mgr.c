@@ -153,7 +153,8 @@ open_db (SeafBranchManager *mgr)
         sql = "CREATE TABLE IF NOT EXISTS Branch("
             " id BIGSERIAL PRIMARY KEY,"
             " name VARCHAR(10),"
-            " repo_id CHAR(41),"
+//            " repo_id CHAR(41),"
+            " repo_id CHAR(36),"
             " commit_id CHAR(41));";
         if (seaf_db_query (mgr->seaf->db, sql) < 0)
             return -1;
