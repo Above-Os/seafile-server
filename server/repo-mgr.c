@@ -1236,7 +1236,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS Repo ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37))";
+          " repo_id CHAR(36))";
+//          " repo_id CHAR(37))";
     if (seaf_db_query (db, sql) < 0)
         return -1;
     sql = "CREATE UNIQUE INDEX IF NOT EXISTS repo_repoid_idx ON Repo (repo_id)";
@@ -1245,7 +1246,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS RepoOwner ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37),"
+//          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " owner_id VARCHAR(255))";
     if (seaf_db_query (db, sql) < 0)
         return -1;
@@ -1258,7 +1260,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS RepoGroup ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37),"
+//          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " group_id INTEGER,"
           " user_name VARCHAR(255),"
           " permission CHAR(15))";
@@ -1276,6 +1279,7 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS InnerPubRepo ("
           " id BIGSERIAL PRIMARY KEY,"
+//          " repo_id CHAR(37),"
           " repo_id CHAR(37),"
           " permission CHAR(15))";
     if (seaf_db_query (db, sql) < 0)
@@ -1286,7 +1290,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS RepoUserToken ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37),"
+//          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " email VARCHAR(255),"
           " token CHAR(41))";
     if (seaf_db_query (db, sql) < 0)
@@ -1320,7 +1325,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS RepoHead ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37),"
+//          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " branch_name VARCHAR(10))";
     if (seaf_db_query (db, sql) < 0)
         return -1;
@@ -1330,7 +1336,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS RepoSize ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37),"
+//          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " size BIGINT,"
           " head_id CHAR(41))";
     if (seaf_db_query (db, sql) < 0)
@@ -1341,7 +1348,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS RepoHistoryLimit ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37),"
+//          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " days INTEGER)";
     if (seaf_db_query (db, sql) < 0)
         return -1;
@@ -1351,7 +1359,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS RepoValidSince ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37),"
+//          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " timestamp BIGINT)";
     if (seaf_db_query (db, sql) < 0)
         return -1;
@@ -1361,7 +1370,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS WebAP ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(37),"
+//          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " access_property CHAR(10))";
     if (seaf_db_query (db, sql) < 0)
         return -1;

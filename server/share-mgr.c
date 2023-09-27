@@ -59,7 +59,8 @@ seaf_share_manager_start (SeafShareManager *mgr)
     } else if (db_type == SEAF_DB_TYPE_PGSQL) {
         sql = "CREATE TABLE IF NOT EXISTS SharedRepo ("
               " id BIGSERIAL PRIMARY KEY,"
-              " repo_id CHAR(37),"
+//              " repo_id CHAR(37),"
+              " repo_id CHAR(36),"
               " from_email VARCHAR(255),"
               " to_email VARCHAR(255),"
               " permission CHAR(15))";
