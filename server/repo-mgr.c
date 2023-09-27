@@ -1063,8 +1063,9 @@ create_tables_mysql (SeafRepoManager *mgr)
         return -1;
 
     sql = "CREATE TABLE IF NOT EXISTS WebUploadTempFiles ( "
-        "id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT, repo_id CHAR(40) NOT NULL, "
+          "id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT, repo_id CHAR(36) NOT NULL, "
         "file_path TEXT NOT NULL, tmp_file_path TEXT NOT NULL, UNIQUE INDEX(repo_id)) ENGINE=INNODB";
+    // CHAR(40) NOT NULL, "
     if (seaf_db_query (db, sql) < 0)
         return -1;
 
@@ -1216,8 +1217,9 @@ create_tables_sqlite (SeafRepoManager *mgr)
     if (seaf_db_query (db, sql) < 0)
         return -1;
 
-    sql = "CREATE TABLE IF NOT EXISTS WebUploadTempFiles (repo_id CHAR(40) NOT NULL, "
+    sql = "CREATE TABLE IF NOT EXISTS WebUploadTempFiles (repo_id CHAR(36) NOT NULL, "
         "file_path TEXT NOT NULL, tmp_file_path TEXT NOT NULL)";
+    // CHAR(40) NOT NULL, "
     if (seaf_db_query (db, sql) < 0)
         return -1;
 
@@ -1451,7 +1453,8 @@ create_tables_pgsql (SeafRepoManager *mgr)
 
     sql = "CREATE TABLE IF NOT EXISTS WebUploadTempFiles ("
           " id BIGSERIAL PRIMARY KEY,"
-          " repo_id CHAR(40) NOT NULL,"
+//          " repo_id CHAR(40) NOT NULL,"
+          " repo_id CHAR(36) NOT NULL,"
           " file_path TEXT NOT NULL,"
           " tmp_file_path TEXT NOT NULL)";
     if (seaf_db_query (db, sql) < 0)
