@@ -1282,7 +1282,7 @@ create_tables_pgsql (SeafRepoManager *mgr)
     sql = "CREATE TABLE IF NOT EXISTS InnerPubRepo ("
           " id BIGSERIAL PRIMARY KEY,"
 //          " repo_id CHAR(37),"
-          " repo_id CHAR(37),"
+          " repo_id CHAR(36),"
           " permission CHAR(15))";
     if (seaf_db_query (db, sql) < 0)
         return -1;
