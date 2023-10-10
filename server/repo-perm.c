@@ -34,6 +34,14 @@ check_repo_share_perm_cb (SeafDBRow *row, void *data)
     return TRUE;
 }
 
+void rtrim(char* str) {
+    int len = strlen(str);
+    while (len > 0 && isspace(str[len - 1])) {
+        str[len - 1] = '\0';
+        len--;
+    }
+}
+
 static char *
 check_group_permission_by_user (SeafRepoManager *mgr,
                                 const char *repo_id,
@@ -89,15 +97,23 @@ check_repo_share_permission (SeafRepoManager *mgr,
     permission = seaf_share_manager_check_permission (seaf->share_mgr,
                                                       repo_id,
                                                       user_name);
-    if (permission != NULL)
+    if (permission != NULL) {
+        rtrim(permission);
         return permission;
+    }
 
     permission = check_group_permission_by_user (mgr, repo_id, user_name);
-    if (permission != NULL)
+    if (permission != NULL) {
+        rtrim(permission);
         return permission;
+    }
 
-    if (!mgr->seaf->cloud_mode)
-        return seaf_repo_manager_get_inner_pub_repo_perm (mgr, repo_id);
+    if (!mgr->seaf->cloud_mode) {
+        permission = seaf_repo_manager_get_inner_pub_repo_perm(mgr, repo_id);
+        if (permission != NULL)
+            rtrim(permission);
+        return permission;
+    }
 
     return NULL;
 }
