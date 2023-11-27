@@ -1891,7 +1891,7 @@ parse_mime_header (evhtp_request_t *req, char *header, RecvFSM *fsm)
             return -1;
         }
 
-        if (strcmp (fsm->input_name, "file") == 0) {
+        if ((strcmp (fsm->input_name, "file") == 0) || (strcmp (fsm->input_name, "files_content") == 0)) {
             char *file_name;
             for (p = params; *p != NULL; ++p) {
                 if (strncasecmp (*p, "filename", strlen("filename")) == 0) {
@@ -1907,6 +1907,20 @@ parse_mime_header (evhtp_request_t *req, char *header, RecvFSM *fsm)
                         g_free (file_name);
                     }
                     break;
+                }
+            }
+            if (strcmp (fsm->input_name, "files_content") == 0) {
+                fsm->file_name = "string";
+                if (fsm->rstart >= 0) {
+                    file_name = parse_file_name_from_header (req);
+                } else {
+                    file_name = g_strdup(g_hash_table_lookup (fsm->form_kvs, "filename"));   //get_mime_header_param_value (*p);
+                }
+                if (file_name) {
+                    fsm->file_name = normalize_utf8_path (file_name);
+                    if (!fsm->file_name)
+                        seaf_debug ("File name is not valid utf8 encoding.\n");
+                    g_free (file_name);
                 }
             }
             if (!fsm->file_name) {
@@ -2186,7 +2200,8 @@ upload_read_cb (evhtp_request_t *req, evbuf_t *buf, void *arg)
                         res = EVHTP_RES_BADREQ;
                         goto out;
                     }
-                    if (g_strcmp0 (fsm->input_name, "file") == 0) {
+                    if ((g_strcmp0 (fsm->input_name, "file") == 0) ||
+                    (g_strcmp0 (fsm->input_name, "files_content") == 0)) {
                         if (open_temp_file (fsm) < 0) {
                             seaf_warning ("[upload] Failed open temp file, errno:[%d]\n", errno);
                             res = EVHTP_RES_SERVERR;
@@ -2207,7 +2222,7 @@ upload_read_cb (evhtp_request_t *req, evbuf_t *buf, void *arg)
             }
             break;
         case RECV_CONTENT:
-            if (g_strcmp0 (fsm->input_name, "file") == 0)
+            if ((g_strcmp0 (fsm->input_name, "file") == 0) || (g_strcmp0 (fsm->input_name, "files_content") == 0))
                 res = recv_file_data (fsm, &no_line);
             else
                 res = recv_form_field (fsm, &no_line);
