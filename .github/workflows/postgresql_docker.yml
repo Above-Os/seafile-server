@@ -10,7 +10,7 @@
 name: Publish Seahub Database Docker image (Without superuser created)
 
 on:
-#  workflow_dispatch:
+  workflow_dispatch:
 #  push:
 #    branches:
 #      - pgsql
