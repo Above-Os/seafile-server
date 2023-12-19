@@ -10,12 +10,12 @@
 name: Publish Seahub Database Docker image (Without superuser created)
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - test_ci
-  release:
-    types: [published]
+#  workflow_dispatch:
+#  push:
+#    branches:
+#      - test_ci
+#  release:
+#    types: [published]
 
 jobs:
   push_to_registry:

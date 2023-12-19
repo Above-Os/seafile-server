@@ -1,10 +1,10 @@
 name: Seafile Server Build CI
 
 on: 
-  push:
-    branches:
-      - master
-  workflow_dispatch:
+#  push:
+#    branches:
+#      - master
+#  workflow_dispatch:
 
 # env:
 #   # registry: my_registry_name
